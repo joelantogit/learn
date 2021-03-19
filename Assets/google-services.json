@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362983812136",
+    "project_id": "learn-ssad",
+    "storage_bucket": "learn-ssad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362983812136:android:936a3cf79d6b60e123d91d",
+        "android_client_info": {
+          "package_name": "com.Team8.learnapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362983812136-jk99622aags69a26s0up9cn56lakmk4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1CwlNLCsvzwpacHBvP30s1VLM2vvE07w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362983812136-jk99622aags69a26s0up9cn56lakmk4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
