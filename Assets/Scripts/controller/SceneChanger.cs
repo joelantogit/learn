@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Google;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class SceneChanger : MonoBehaviour
 	{
 		SceneManager.LoadScene(name);
 	}
-	public void Exit()
+	public void Logout()
 	{
-		Application.Quit();
+		//Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+		//auth.SignOut();
+		//SceneManager.LoadScene("Scenes/login");
 	}
 }

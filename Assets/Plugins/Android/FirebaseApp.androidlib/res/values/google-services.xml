@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
-  <string name="gcm_defaultSenderId" translatable="false">362983812136</string>
-  <string name="google_storage_bucket" translatable="false">learn-ssad.appspot.com</string>
-  <string name="project_id" translatable="false">learn-ssad</string>
-  <string name="google_api_key" translatable="false">AIzaSyC1CwlNLCsvzwpacHBvP30s1VLM2vvE07w</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC1CwlNLCsvzwpacHBvP30s1VLM2vvE07w</string>
-  <string name="google_app_id" translatable="false">1:362983812136:android:936a3cf79d6b60e123d91d</string>
-  <string name="default_web_client_id" translatable="false">362983812136-jk99622aags69a26s0up9cn56lakmk4j.apps.googleusercontent.com</string>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://learn-887cf-default-rtdb.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">1068607306817</string>
+  <string name="google_storage_bucket" translatable="false">learn-887cf.appspot.com</string>
+  <string name="project_id" translatable="false">learn-887cf</string>
+  <string name="google_api_key" translatable="false">AIzaSyC96RZYzvz9FQjbInKGoEb5B0Jokz-ZNYc</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC96RZYzvz9FQjbInKGoEb5B0Jokz-ZNYc</string>
+  <string name="google_app_id" translatable="false">1:1068607306817:android:a2071b65b68836e071dac0</string>
+  <string name="default_android_client_id" translatable="false">1068607306817-58ltkur6bcdr0r88ut1s6kuju8c9ek7j.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">1068607306817-cuq3uc98sd7dgjv0i5mmtmgs741h1t2q.apps.googleusercontent.com</string>
 </resources>

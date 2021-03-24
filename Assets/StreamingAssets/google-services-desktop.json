@@ -1,33 +1,42 @@
 {
   "project_info": {
-    "project_number": "362983812136",
-    "project_id": "learn-ssad",
-    "storage_bucket": "learn-ssad.appspot.com"
+    "project_number": "1068607306817",
+    "firebase_url": "https://learn-887cf-default-rtdb.firebaseio.com",
+    "project_id": "learn-887cf",
+    "storage_bucket": "learn-887cf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:362983812136:android:936a3cf79d6b60e123d91d",
+        "mobilesdk_app_id": "1:1068607306817:android:a2071b65b68836e071dac0",
         "android_client_info": {
           "package_name": "com.Team8.learnapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "362983812136-jk99622aags69a26s0up9cn56lakmk4j.apps.googleusercontent.com",
+          "client_id": "1068607306817-58ltkur6bcdr0r88ut1s6kuju8c9ek7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Team8.learnapp",
+            "certificate_hash": "e070b9eab89cd724fe5d6f53550249c55920dae6"
+          }
+        },
+        {
+          "client_id": "1068607306817-cuq3uc98sd7dgjv0i5mmtmgs741h1t2q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1CwlNLCsvzwpacHBvP30s1VLM2vvE07w"
+          "current_key": "AIzaSyC96RZYzvz9FQjbInKGoEb5B0Jokz-ZNYc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "362983812136-jk99622aags69a26s0up9cn56lakmk4j.apps.googleusercontent.com",
+              "client_id": "1068607306817-cuq3uc98sd7dgjv0i5mmtmgs741h1t2q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
