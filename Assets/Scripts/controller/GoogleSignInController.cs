@@ -41,7 +41,11 @@ public class GoogleSignInController : MonoBehaviour
         });
     }
 
-    public void SignInWithGoogle() { OnSignIn(); }
+    public void SignInWithGoogle()
+    {
+        AddToInformation("Login pressed");
+        OnSignIn();
+    }
     public void SignOutFromGoogle() { OnSignOut(); }
 
     private void OnSignIn()
