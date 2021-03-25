@@ -16,6 +16,7 @@ public class GoogleSignInController : MonoBehaviour
 
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
+    private FirebaseUser user;
 
     private void Awake()
     {
@@ -30,7 +31,12 @@ public class GoogleSignInController : MonoBehaviour
             if (task.IsCompleted)
             {
                 if (task.Result == DependencyStatus.Available)
+                {
                     auth = FirebaseAuth.DefaultInstance;
+                    auth.StateChanged += AuthStateChanged;
+                    AuthStateChanged(this, null);
+                }
+                    
                 else
                     AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
             }
@@ -40,6 +46,30 @@ public class GoogleSignInController : MonoBehaviour
             }
         });
     }
+
+    //auth state change event handler -  if login screen is called without proper signout then, it should persist
+    //the login session for the current user
+
+
+    void AuthStateChanged(object sender, System.EventArgs eventArgs)
+    {
+        if (auth.CurrentUser != user)
+        {
+            bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
+            if (!signedIn && user != null)
+            {
+                AddToInformation("Signed out " + user.UserId);
+            }
+            user = auth.CurrentUser;
+            if (signedIn)
+            {
+                AddToInformation("Signed in " + user.UserId);
+                //sceneChangeAfterLogin();
+            }
+        }
+    }
+
+    //function to call from unity for loggin in
 
     public void SignInWithGoogle()
     {
@@ -148,4 +178,7 @@ public class GoogleSignInController : MonoBehaviour
     {
         SceneManager.LoadScene("Scenes/homepage");
     }
+
+
+  
 }
