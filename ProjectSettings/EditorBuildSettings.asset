@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Worlds.unity
     guid: e8e9c4bf023fc40f7b90ffb883438949
   - enabled: 1
-    path: Assets/Scenes/play.unity
+    path: Assets/Scenes/game.unity
     guid: e2798004238b4409aaf05fb5e23c6e55
   - enabled: 1
     path: Assets/Scenes/Challenge.unity
