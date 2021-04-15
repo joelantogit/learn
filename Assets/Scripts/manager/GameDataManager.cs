@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class toggleScript : MonoBehaviour
+public class GameDataManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,9 +14,5 @@ public class toggleScript : MonoBehaviour
     void Update()
     {
         
-    }
-    public void emailToggle(bool tog)
-    {
-        print(tog);        
     }
 }
