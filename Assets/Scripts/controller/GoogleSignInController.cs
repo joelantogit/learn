@@ -186,14 +186,20 @@ namespace controller
                     if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
                     {
                         Debug.Log("User exists");
-                        sceneChangeAfterLogin();
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            sceneChangeAfterLogin();
+                        });
 
                     }
                     else
                     {
                         Debug.Log("User  does not exist need to create");
                         userManager.createUser();
-                        sceneChangeAfterLogin();
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        {
+                            sceneChangeAfterLogin();
+                        });
                     }
 
                 }
@@ -228,14 +234,16 @@ namespace controller
             Debug.Log(str);
             infoText.text += "\n" + str; }
 
-    public void sceneChangeAfterLogin()
-    {
-        SceneManager.LoadScene("Scenes/homepage");
+        public void sceneChangeAfterLogin()
+        {
+            SceneManager.LoadScene("Scenes/homepage");
+           
+
+        }
+
+
+
     }
-
-
-
-}
 
 }
 
