@@ -8,8 +8,13 @@ using Google;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Firebase.Database;
+using manager;
 
-public class GoogleSignInController : MonoBehaviour
+namespace controller
+
+{
+    public class GoogleSignInController : MonoBehaviour
 {
     public Text infoText;
     public string webClientId = "<your client id here>";
@@ -17,6 +22,7 @@ public class GoogleSignInController : MonoBehaviour
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
     private FirebaseUser user;
+    private UserManager userManager;
 
     private void Awake()
     {
@@ -36,7 +42,7 @@ public class GoogleSignInController : MonoBehaviour
                     auth.StateChanged += AuthStateChanged;
                     AuthStateChanged(this, null);
                 }
-                    
+
                 else
                     AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
             }
@@ -125,8 +131,7 @@ public class GoogleSignInController : MonoBehaviour
         {
             AddToInformation("Welcome: " + task.Result.DisplayName + "!");
             AddToInformation("Email = " + task.Result.Email);
-            AddToInformation("Google ID Token = " + task.Result.IdToken);
-            AddToInformation("Email = " + task.Result.Email);
+            //AddToInformation("Google ID Token = " + task.Result.IdToken);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
         }
     }
@@ -146,10 +151,116 @@ public class GoogleSignInController : MonoBehaviour
             else
             {
                 AddToInformation("Sign In Successful.");
+                //check if user is new then add him to database else continue
+                //checkTestdata();
+                //checkIfUserExists();
+
                 sceneChangeAfterLogin();
             }
         });
     }
+
+    private void checkTestdata()
+    {
+        AddToInformation("hi this is from test data \n user - ");
+
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+        var DBTask = reference.Child("User").Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").GetValueAsync();
+        if (DBTask.Exception != null)
+        {
+            AddToInformation("error from database");
+        }
+        else if (DBTask.Result.Value == null)
+        {
+            AddToInformation("no users");
+            //create user
+            //userManager.createUser(user);
+
+        }
+        else
+        {
+            DataSnapshot snapshot = DBTask.Result;
+
+
+            AddToInformation("The user is already existing in the database " + snapshot.Child("name").Value.ToString());
+
+
+
+        }
+
+    }
+
+    private void checkIfUserExists()
+    {
+        AddToInformation("hi this is from Check if user exists \n user - " + user.UserId);
+
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+        var DBTask = reference.Child("User").Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").GetValueAsync();
+        if (DBTask.Exception != null)
+        {
+            AddToInformation("error from database");
+        }
+        else if (DBTask.Result.Value == null)
+        {
+            AddToInformation("no users");
+            //create user
+            userManager.createUser(user);
+
+        }
+        else
+        {
+            DataSnapshot snapshot = DBTask.Result;
+            //if(snapshot.Child(user.UserId).Value == null)
+            //{
+            //    AddToInformation("The user does not exists, creating user");
+            //    userManager.createUser(user);
+            //}
+            //else
+            //{
+            //    AddToInformation("The user is already existing in the database " + snapshot.Child(user.UserId).Child("name").Value.ToString());
+            //}
+
+
+            AddToInformation("The user is already existing in the database " + snapshot.Child("name").Value.ToString());
+
+
+
+        }
+
+
+    }
+
+
+    //private void checkIfUserExists()
+    //{
+    //    AddToInformation("hi this is from Check if user exists");
+    //    FirebaseDatabase.DefaultInstance.
+    //    GetReference("User/" + user.UserId)
+    //    .GetValueAsync().ContinueWith(task => {
+    //         if (task.IsFaulted)
+    //         {
+    //            AddToInformation("database error");
+    //         }
+    //         else if (task.IsCompleted)
+    //         {
+    //             DataSnapshot snapshot = task.Result;
+    //             if (snapshot.Exists)
+    //            {
+    //                AddToInformation("Firebase user is an existing app user");
+
+    //            }
+    //            else
+    //            {
+    //                AddToInformation("user does not exist");
+
+    //            }
+
+    //        }
+    //     });
+
+
+
+    //}
 
     public void OnSignInSilently()
     {
@@ -172,7 +283,7 @@ public class GoogleSignInController : MonoBehaviour
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
     }
 
-    private void AddToInformation(string str) { infoText.text += "\n" + str; }
+    public void AddToInformation(string str) { infoText.text += "\n" + str; }
 
     public void sceneChangeAfterLogin()
     {
@@ -180,5 +291,8 @@ public class GoogleSignInController : MonoBehaviour
     }
 
 
-  
+
 }
+
+}
+
