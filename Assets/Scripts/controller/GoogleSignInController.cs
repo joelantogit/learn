@@ -23,12 +23,17 @@ namespace controller
     private GoogleSignInConfiguration configuration;
     private FirebaseUser user;
     private UserManager userManager;
+    private DatabaseReference user_reference;
 
-    private void Awake()
-    {
-        configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
-        CheckFirebaseDependencies();
-    }
+        private void Awake()
+        {
+            configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
+            //CheckFirebaseDependencies();
+            FirebaseApp.CheckAndFixDependenciesAsync();
+            user_reference = FirebaseDatabase.DefaultInstance.GetReference("User");
+            userManager = new UserManager();
+
+        }
 
     private void CheckFirebaseDependencies()
     {
@@ -80,7 +85,9 @@ namespace controller
     public void SignInWithGoogle()
     {
         AddToInformation("Login pressed");
-        OnSignIn();
+            //OnSignIn();
+            checkIfUserExists();
+
     }
     public void SignOutFromGoogle() { OnSignOut(); }
 
@@ -153,116 +160,50 @@ namespace controller
                 AddToInformation("Sign In Successful.");
                 //check if user is new then add him to database else continue
                 //checkTestdata();
+               
                 //checkIfUserExists();
 
-                sceneChangeAfterLogin();
+
+                //sceneChangeAfterLogin();
             }
         });
     }
 
-    private void checkTestdata()
-    {
-        AddToInformation("hi this is from test data \n user - ");
-
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-        var DBTask = reference.Child("User").Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").GetValueAsync();
-        if (DBTask.Exception != null)
+        private void checkIfUserExists()
         {
-            AddToInformation("error from database");
-        }
-        else if (DBTask.Result.Value == null)
-        {
-            AddToInformation("no users");
-            //create user
-            //userManager.createUser(user);
 
-        }
-        else
-        {
-            DataSnapshot snapshot = DBTask.Result;
+            user_reference.GetValueAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("error from database");
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    //Debug.Log("User exists \n user - " + snapshot.Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").Child("name").Value.ToString());
+                    //Debug.Log("Checking if user 1 exists");
 
+                    if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
+                    {
+                        Debug.Log("User exists");
+                        sceneChangeAfterLogin();
 
-            AddToInformation("The user is already existing in the database " + snapshot.Child("name").Value.ToString());
+                    }
+                    else
+                    {
+                        Debug.Log("User  does not exist need to create");
+                        userManager.createUser();
+                        sceneChangeAfterLogin();
+                    }
 
-
-
-        }
-
-    }
-
-    private void checkIfUserExists()
-    {
-        AddToInformation("hi this is from Check if user exists \n user - " + user.UserId);
-
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-        var DBTask = reference.Child("User").Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").GetValueAsync();
-        if (DBTask.Exception != null)
-        {
-            AddToInformation("error from database");
-        }
-        else if (DBTask.Result.Value == null)
-        {
-            AddToInformation("no users");
-            //create user
-            userManager.createUser(user);
-
-        }
-        else
-        {
-            DataSnapshot snapshot = DBTask.Result;
-            //if(snapshot.Child(user.UserId).Value == null)
-            //{
-            //    AddToInformation("The user does not exists, creating user");
-            //    userManager.createUser(user);
-            //}
-            //else
-            //{
-            //    AddToInformation("The user is already existing in the database " + snapshot.Child(user.UserId).Child("name").Value.ToString());
-            //}
-
-
-            AddToInformation("The user is already existing in the database " + snapshot.Child("name").Value.ToString());
-
-
-
+                }
+            });
         }
 
 
-    }
 
 
-    //private void checkIfUserExists()
-    //{
-    //    AddToInformation("hi this is from Check if user exists");
-    //    FirebaseDatabase.DefaultInstance.
-    //    GetReference("User/" + user.UserId)
-    //    .GetValueAsync().ContinueWith(task => {
-    //         if (task.IsFaulted)
-    //         {
-    //            AddToInformation("database error");
-    //         }
-    //         else if (task.IsCompleted)
-    //         {
-    //             DataSnapshot snapshot = task.Result;
-    //             if (snapshot.Exists)
-    //            {
-    //                AddToInformation("Firebase user is an existing app user");
-
-    //            }
-    //            else
-    //            {
-    //                AddToInformation("user does not exist");
-
-    //            }
-
-    //        }
-    //     });
-
-
-
-    //}
-
-    public void OnSignInSilently()
+        public void OnSignInSilently()
     {
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
@@ -283,7 +224,9 @@ namespace controller
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
     }
 
-    public void AddToInformation(string str) { infoText.text += "\n" + str; }
+    public void AddToInformation(string str) {
+            Debug.Log(str);
+            infoText.text += "\n" + str; }
 
     public void sceneChangeAfterLogin()
     {

@@ -6,39 +6,22 @@ using Firebase.Auth;
 using System;
 using Firebase.Database;
 using controller;
-
+using Newtonsoft.Json;
 
 namespace manager
 {
-    public class UserManager : MonoBehaviour
+    public class UserManager
     {
-        // Start is called before the first frame update
-        User user;
-        GoogleSignInController g;
-        
-        void Start()
-        {
-            Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-            Firebase.Auth.FirebaseUser currentUser = auth.CurrentUser;
-            user = new User(currentUser.UserId);
-        }
+        Firebase.Auth.FirebaseUser currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
 
-        // Update is called once per frame
-        void Update()
+        public void createUser()
         {
-
-        }
-
-        int getCurrentWorld()
-        {
-            return user.current_world;
-        }
-
-        public void createUser(FirebaseUser currentUser )
-        {
-            g.AddToInformation("inside create user");
-            user.name = currentUser.DisplayName;
-            user.emailid = currentUser.Email;
+            User user = new User();
+            Debug.Log("inside create user");
+            user.name = "joel";
+            //user.name = currentUser.DisplayName;
+            user.emailid = "test@gmail.com";
+            //user.emailid = currentUser.Email;
             user.enable_email = true;
             user.role = "student";
             user.current_level = "Average";
@@ -47,18 +30,13 @@ namespace manager
             user.worldselected = 0;
             user.total_points = 0;
             user.character = "";
-            user.uid = currentUser.UserId;
-            save();
+            user.uid = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
+            //user.uid = currentUser.UserId;
 
-        }
-
-        private void save()
-        {
-            g.AddToInformation("inside save");
             DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-            string json = JsonUtility.ToJson(user);
+            string json = JsonConvert.SerializeObject(user);
+            Debug.Log(json);
             reference.Child("User").Child(user.uid).SetRawJsonValueAsync(json);
-
 
         }
     }

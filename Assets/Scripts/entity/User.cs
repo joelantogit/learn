@@ -20,13 +20,6 @@ namespace entity
         public int worldselected { get; set; }
 
 
-
-        public User(string Uid)
-        {
-            uid = Uid;
-        }
-
-        
     }
 }
 
