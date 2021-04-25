@@ -439,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 530724719}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &357652244
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,6 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 530724719}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &415893546
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,21 +746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9247e9f163fbe4892b961117b32e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QnA:
-  - Question: What color is teeth?
-    Answers:
-    - White
-    - Black
-    - Blue
-    - Green
-    CorrectAnswer: 1
-  - Question: What food do you like?
-    Answers:
-    - Burger
-    - Fried Chicken
-    - Pad Thai
-    - BBQ
-    CorrectAnswer: 4
   options:
   - {fileID: 1859630377}
   - {fileID: 2066440780}
@@ -766,10 +753,20 @@ MonoBehaviour:
   - {fileID: 291110125}
   currentQuestion: 0
   score: 0
+  world: World1
+  level: Addition & Subtraction
+  questionNum: 1
+  questionStr: question1
+  totalQuestionNum: 0
   QuizPanel: {fileID: 42890163}
   GoPanel: {fileID: 522100855}
   QuestionTxt: {fileID: 415893548}
   ScoreTxt: {fileID: 827743101}
+  answers:
+  - 1
+  - 2
+  - 3
+  - 4
 --- !u!4 &530724720
 Transform:
   m_ObjectHideFlags: 0
@@ -1783,6 +1780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 530724719}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1907230958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,3 +2099,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 530724719}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
