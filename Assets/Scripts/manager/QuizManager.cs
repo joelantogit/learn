@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Database;
 using System;
+using System.Threading.Tasks;
 using Random=UnityEngine.Random;
 
 public class QuizManager : MonoBehaviour
@@ -20,14 +21,16 @@ public class QuizManager : MonoBehaviour
     public GameObject[] options;
     public int currentQuestion;
     public int score = 0;
-    int totalQuestions = 0;
+    int totalQuestions = 4;
     public string world = "World1";
     public string level = "Addition & Subtraction";
     public int totalQuestionNum = 0;
-    
+    static int retryNum = 1;
+
     public string question = "H";
     public string[] answers = new string[4];
     public int correctanswer = 1;
+    public int questionNum = 1;
 
     public GameObject QuizPanel;
     public GameObject GoPanel;
@@ -41,9 +44,6 @@ public class QuizManager : MonoBehaviour
 
     void Start()
     {
-        createQA();
-        totalQuestions = QnA.Count;
-        print(totalQuestions);
         GoPanel.SetActive(false);
         generateQuestion();
     }
@@ -54,12 +54,11 @@ public class QuizManager : MonoBehaviour
 
     }
 
-    public void createQA()
+    public async Task getData()
     {   
-        int questionNum = 1;
         int optionNum = 1;
-        
-        FirebaseDatabase.DefaultInstance      
+
+        await FirebaseDatabase.DefaultInstance      
         .GetReference(world)      
         .GetValueAsync().ContinueWith(task => 
         {        
@@ -72,7 +71,7 @@ public class QuizManager : MonoBehaviour
                 DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
                 question  = snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child("question").Value.ToString(); 
                 correctanswer = Convert.ToInt32(snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child("correctans").Value.ToString());
-                print(correctanswer);
+                
                 for(int i=0;i<4;i++) 
                 {
                     answers[i]  = snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child(string.Format("option{0}", optionNum)).Value.ToString(); 
@@ -82,7 +81,11 @@ public class QuizManager : MonoBehaviour
             }      
         }
         );
+        return;
             
+    }
+    public void createQA()
+    {
         QnA.Add(new QuestionAndAnswers
         {
             Question = question,
@@ -90,13 +93,21 @@ public class QuizManager : MonoBehaviour
             CorrectAnswer = correctanswer,
         }
         );
-            
     }
     
 
     public void retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(retryNum<3)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            retryNum++;
+        }
+        else
+        {
+            print("Maximum attempted");
+            
+        }
     }
 
     void GameOver()
@@ -122,7 +133,7 @@ public class QuizManager : MonoBehaviour
 
     void SetAnswers()
     {
-        for(int i=0;i<options.Length;i++)
+        for(int i=0;i<4;i++)
         {
             options[i].GetComponent<AnswerScript>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponent<Text>().text = QnA[currentQuestion].Answers[i];
@@ -136,17 +147,25 @@ public class QuizManager : MonoBehaviour
 
     
 
-    void generateQuestion()
+    async void generateQuestion()
     {
-        if(QnA.Count>0)
+        if(questionNum !=5)
         {
-            currentQuestion = Random.Range(0,QnA.Count);
+            await getData();
+            createQA();
+        }
+        if(questionNum<5)
+        {
+            currentQuestion = 0;
             QuestionTxt.text = QnA[currentQuestion].Question;
             SetAnswers();
+            questionNum++;
         }
         else
         {
             GameOver();
+            questionNum = 1;
+            print(retryNum);
         }
             
     }
