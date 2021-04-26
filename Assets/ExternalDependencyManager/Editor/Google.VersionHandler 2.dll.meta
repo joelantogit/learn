@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Android/androidx.arch.core.core-common-2.0.0.jar.meta
+guid: 6f248658c9f0c7d4886f76810eac545c
+labels:
+- gpsr
+=======
+guid: d042e676c914940a8a0203ee6447a94a
+>>>>>>> d64a719822e76e417c9ebb48edfeb483ed697678:Assets/ExternalDependencyManager/Editor/Google.VersionHandler 2.dll.meta
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  defineConstraints: []
+  isPreloaded: 0
+  isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

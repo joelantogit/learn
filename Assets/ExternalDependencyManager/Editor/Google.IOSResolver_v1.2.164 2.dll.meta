@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Android/androidx.arch.core.core-runtime-2.0.0.aar.meta
+guid: f1cbfab1621f19e4f9f44e76c476765b
+labels:
+- gpsr
+=======
+guid: f9b31bad94197489bac09df730a51023
+>>>>>>> d64a719822e76e417c9ebb48edfeb483ed697678:Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.164 2.dll.meta
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  defineConstraints: []
+  isPreloaded: 0
+  isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
