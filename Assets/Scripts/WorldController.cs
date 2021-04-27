@@ -27,6 +27,7 @@ public class WorldController : MonoBehaviour
     {
         for(int i = 0; i < panCount ; i++)
         {
+            
             worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i+1 ;
             Instantiate(panPrefab, transform, false);
             
