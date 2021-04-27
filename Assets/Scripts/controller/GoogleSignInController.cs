@@ -85,8 +85,9 @@ namespace controller
     public void SignInWithGoogle()
     {
         AddToInformation("Login pressed");
-            //OnSignIn();
             checkIfUserExists();
+            //OnSignIn();
+            
 
     }
     public void SignOutFromGoogle() { OnSignOut(); }
@@ -186,6 +187,7 @@ namespace controller
                     if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
                     {
                         Debug.Log("User exists");
+                        
                         UnityMainThreadDispatcher.Instance().Enqueue(() =>
                         {
                             sceneChangeAfterLogin();
