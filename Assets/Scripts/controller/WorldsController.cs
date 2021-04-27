@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// using Firebase;
-// using Firebase.Database;
+using Firebase;
+using Firebase.Database;
 
 public class WorldsController: MonoBehaviour
 {

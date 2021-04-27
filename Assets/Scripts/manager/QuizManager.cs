@@ -23,7 +23,7 @@ public class QuizManager : MonoBehaviour
     public int score = 0;
     int totalQuestions = 4;
     public string world = "World1";
-    public string level = "Addition & Subtraction";
+    public string level = "1";
     public int totalQuestionNum = 0;
     static int retryNum = 1;
 
@@ -59,7 +59,7 @@ public class QuizManager : MonoBehaviour
         int optionNum = 1;
 
         await FirebaseDatabase.DefaultInstance      
-        .GetReference(world)      
+        .GetReference("Worlds")      
         .GetValueAsync().ContinueWith(task => 
         {        
             if (task.IsFaulted) 
@@ -69,7 +69,7 @@ public class QuizManager : MonoBehaviour
             else if (task.IsCompleted) 
             {          
                 DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
-                question  = snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child("question").Value.ToString(); 
+                question  = snapshot.Child(world).Child("levels").Child(level).Child(string.Format("question{0}", questionNum)).Child("question").Value.ToString(); 
                 correctanswer = Convert.ToInt32(snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child("correctans").Value.ToString());
                 
                 for(int i=0;i<4;i++) 
