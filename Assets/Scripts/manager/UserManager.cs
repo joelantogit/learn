@@ -43,6 +43,24 @@ namespace manager
 
         }
 
+       public async Task<List<User>> GetAllUsersList()
+        {
+            DatabaseReference user_reference = FirebaseDatabase.DefaultInstance.GetReference("User");
+            var users = new List<User>();
+            Task<DataSnapshot> task = user_reference.GetValueAsync();
+            DataSnapshot snapshot = await task;
+            
+                   
+            foreach(var _users in snapshot.Children)
+            {
+                String str = _users.GetRawJsonValue();
+                users.Add(JsonConvert.DeserializeObject<User>(str));
+            }
+            return users;
+                
+           
+        }
+
 
         public async Task<User> GetCurrentUserFromDB()
         {
@@ -58,6 +76,7 @@ namespace manager
             Debug.Log("Current user is " + user.name);
 
             SetUser(user);
+            
             return user;
         }
 
@@ -66,10 +85,7 @@ namespace manager
         {
             this.user = user;
         }
-
-
-
-
+       
 
     }
 }

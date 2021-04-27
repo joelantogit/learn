@@ -190,6 +190,13 @@ namespace controller
                     if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
                     {
                         Debug.Log("User exists");
+
+                        var users = userManager.GetAllUsersList();
+                        List<User> usr = users.Result.ToList();
+                        foreach(var user in usr)
+                        {
+                            print("user name is" + user.name);
+                        }
                        
                         CheckRole();
 

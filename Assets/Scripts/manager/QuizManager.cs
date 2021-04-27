@@ -22,8 +22,8 @@ public class QuizManager : MonoBehaviour
     public int currentQuestion;
     public int score = 0;
     int totalQuestions = 4;
-    public string world = "World1";
-    public string level = "1";
+    public string worldname = "Ratios";
+    public string levelname = "Conversion";
     public int totalQuestionNum = 0;
     static int retryNum = 1;
 
@@ -46,6 +46,8 @@ public class QuizManager : MonoBehaviour
     {
         GoPanel.SetActive(false);
         generateQuestion();
+        Debug.Log("started");
+
     }
 
     // Update is called once per frame
@@ -68,13 +70,20 @@ public class QuizManager : MonoBehaviour
             }        
             else if (task.IsCompleted) 
             {          
-                DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
-                question  = snapshot.Child(world).Child("levels").Child(level).Child(string.Format("question{0}", questionNum)).Child("question").Value.ToString(); 
-                correctanswer = Convert.ToInt32(snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child("correctans").Value.ToString());
+                DataSnapshot snapshot = task.Result;          // Do something with snapshot...
+                Debug.Log(worldname);
+                Debug.Log(levelname);
+
+                Debug.Log(snapshot.Child(worldname));
+                //question = snapshot.Child("Ratios/levels/Conversion/question1/question").Value.ToString();
+                question = snapshot.Child(worldname).Child("levels").Child(levelname).Child(string.Format("question{0}", questionNum)).Child("question").Value.ToString();
+                Debug.Log(question);
+                correctanswer = Convert.ToInt32(snapshot.Child(worldname).Child("levels").Child(levelname).Child(string.Format("question{0}", questionNum)).Child("correctans").Value.ToString());
+
                 
                 for(int i=0;i<4;i++) 
                 {
-                    answers[i]  = snapshot.Child(level).Child(string.Format("question{0}", questionNum)).Child(string.Format("option{0}", optionNum)).Value.ToString(); 
+                    answers[i]  = snapshot.Child(worldname).Child("levels").Child(levelname).Child(string.Format("question{0}", questionNum)).Child(string.Format("option{0}", optionNum)).Value.ToString(); 
                     optionNum ++;
                 }
 

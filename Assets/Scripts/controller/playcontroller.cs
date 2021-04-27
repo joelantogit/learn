@@ -31,7 +31,7 @@ public class playcontroller : MonoBehaviour
         {
             if(i > currentworld)
             {
-                worldname.GetComponent<Button>().interactable = false;
+                worldname.GetComponent<Button>().enabled = false;
             }
             worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i ;
             Instantiate(panPrefab, transform, false);
