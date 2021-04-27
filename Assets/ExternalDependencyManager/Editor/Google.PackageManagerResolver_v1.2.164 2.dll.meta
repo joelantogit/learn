@@ -1,0 +1,39 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Android/androidx.asynclayoutinflater.asynclayoutinflater-1.0.0.aar.meta
+guid: bcd6dcd0a2e587149921843d517c589d
+labels:
+- gpsr
+=======
+guid: 186a1be03511a4ddd921362c2dd4be14
+>>>>>>> d64a719822e76e417c9ebb48edfeb483ed697678:Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.164 2.dll.meta
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  defineConstraints: []
+  isPreloaded: 0
+  isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Button.cs.meta
 guid: 118d7126bb27cd64188cb83fb86d1cf3
+=======
+guid: 435279c4187df4efbb6b594a1c1d0e78
+>>>>>>> develop-michelle:Assets/Scenes/challenge.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
