@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/login.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Createclassroom.unity
+    guid: 812f39bf59a4ec0468a7183141c0da49
+  - enabled: 1
+    path: Assets/Classroom leaderboard.unity
+    guid: d46ebcd87db1b644b90d7907a8f9c25d
+  - enabled: 1
+    path: Assets/Question selection.unity
+    guid: 97f59a0da6c65df4a9556d85ef422693
   m_configObjects: {}
