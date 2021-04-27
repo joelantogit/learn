@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Window_Graph : MonoBehaviour
+public class Student_level_Graph : MonoBehaviour
 {
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
@@ -17,7 +17,7 @@ public class Window_Graph : MonoBehaviour
 
         //CreateCircle( new Vector2(200, 200));
         List<int> valueList = new List<int>(){ 5,7, 3, 16, 18, 45, 4, 6};
-        List<string> levelList = new List<string>(){"5","7", "3", "16", "18", "45", "4", "6"};
+        List<string> levelList = new List<string>(){"Conversion","Proportion", "Ratio", "Measuring", "Division", "Percentages", "Average ", "Estimation"};
         showGraph(valueList,levelList);
     }
 
@@ -39,7 +39,7 @@ public class Window_Graph : MonoBehaviour
         float xSize =100f; // x axis is level number
         
         for (int i=0; i<valueList.Count; i++){
-            float xPosition = xSize+ i * xSize;
+            float xPosition =  xSize+ i * xSize;
             float yPosition = (valueList[i]/yMaximum)* graphHeight;
             CreateCircle(new Vector2(xPosition, yPosition));
 
@@ -62,7 +62,22 @@ public class Window_Graph : MonoBehaviour
             labelY. GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
         }
 
+
+          
+
     }
+     private GameObject CreateBar( Vector2 graphPosition, float barWidth  ) {
+        GameObject gameObject = new GameObject("bar ", typeof(Image));
+        gameObject.transform.SetParent(graphContainer,false);  
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = graphPosition;
+        rectTransform.sizeDelta = new Vector2(11,11);
+        rectTransform.anchorMin = new Vector2(0,0);
+        rectTransform.anchorMax = new Vector2(0,0);
+        rectTransform.pivot = new Vector2(.5f, 0f);
+        return gameObject;
+           
+     }
 
 }
 
