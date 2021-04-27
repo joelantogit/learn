@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Firebase.Database;
 using manager;
+using entity;
 
 namespace controller
 
@@ -24,6 +25,7 @@ namespace controller
     private FirebaseUser user;
     private UserManager userManager;
     private DatabaseReference user_reference;
+        
 
         private void Awake()
         {
@@ -75,7 +77,7 @@ namespace controller
             if (signedIn)
             {
                 AddToInformation("Signed in " + user.UserId);
-                //sceneChangeAfterLogin();
+                    //CheckRole();
             }
         }
     }
@@ -86,7 +88,7 @@ namespace controller
     {
         AddToInformation("Login pressed");
             checkIfUserExists();
-            //OnSignIn();
+           // OnSignIn();
             
 
     }
@@ -184,30 +186,48 @@ namespace controller
                     //Debug.Log("User exists \n user - " + snapshot.Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").Child("name").Value.ToString());
                     //Debug.Log("Checking if user 1 exists");
 
+                    //if (snapshot.Child(user.UserId).Exists)
                     if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
                     {
                         Debug.Log("User exists");
-                        
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                        {
-                            sceneChangeAfterLogin();
-                        });
+                       
+                        CheckRole();
 
                     }
                     else
                     {
-                        Debug.Log("User  does not exist need to create");
+                        Debug.Log("User  does not exist need creating user");
                         userManager.createUser();
-                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                        {
-                            sceneChangeAfterLogin();
-                        });
+                        CheckRole();
                     }
 
                 }
             });
         }
 
+       
+        public void CheckRole()
+        {
+            var user = userManager.GetCurrentUserFromDB();
+            if(user.Result.role == "teacher")
+            {
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    sceneChangeAfterLogin("teacher_mainpage");
+                });
+            }
+            else if (user.Result.role == "student")
+            {
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    sceneChangeAfterLogin("Main_Page");
+                });
+            }
+            else
+            {
+                Debug.Log("user is admin");
+            }
+        }
 
 
 
@@ -236,11 +256,10 @@ namespace controller
             Debug.Log(str);
             infoText.text += "\n" + str; }
 
-        public void sceneChangeAfterLogin()
+        public void sceneChangeAfterLogin(string str)
         {
-            SceneManager.LoadScene("Scenes/homepage");
+            SceneManager.LoadScene("Scenes/"+ str);
            
-
         }
 
 

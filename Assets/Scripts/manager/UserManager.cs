@@ -7,12 +7,14 @@ using System;
 using Firebase.Database;
 using controller;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace manager
 {
     public class UserManager
     {
         Firebase.Auth.FirebaseUser currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
+        User user;
 
         public void createUser()
         {
@@ -37,8 +39,38 @@ namespace manager
             string json = JsonConvert.SerializeObject(user);
             Debug.Log(json);
             reference.Child("User").Child(user.uid).SetRawJsonValueAsync(json);
+            
 
         }
+
+
+        public async Task<User> GetCurrentUserFromDB()
+        {
+            DatabaseReference user_reference = FirebaseDatabase.DefaultInstance.GetReference("User");
+            Task<DataSnapshot> task = user_reference.GetValueAsync();
+
+            DataSnapshot snapshot = await task;
+            //string str = snapshot.Child(currentUser.UserId).GetRawJsonValue();
+            string str = snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").GetRawJsonValue();
+            Debug.Log(str);
+            user = JsonConvert.DeserializeObject<User>(str);
+            //User user = juser.user;
+            Debug.Log("Current user is " + user.name);
+
+            SetUser(user);
+            return user;
+        }
+
+
+        public void SetUser(User user)
+        {
+            this.user = user;
+        }
+
+
+
+
+
     }
 }
 
