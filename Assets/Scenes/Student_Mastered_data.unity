@@ -584,8 +584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 35.2, y: 0}
+  m_SizeDelta: {x: 270.47217, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1170652840
 MonoBehaviour:
@@ -619,7 +619,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Student Level Data
+  m_Text: Student Mastered Areas
 --- !u!222 &1170652841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -735,8 +735,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 116}
-  m_SizeDelta: {x: -200, y: 100}
+  m_AnchoredPosition: {x: -18, y: 112}
+  m_SizeDelta: {x: -196, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1413617783
 GameObject:
@@ -1137,8 +1137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.847, y: 0.0000038147}
-  m_SizeDelta: {x: 1309.6953, y: 647.19446}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834732128
 MonoBehaviour:
