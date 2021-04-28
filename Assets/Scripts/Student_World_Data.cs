@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CodeMonkey.Utils;
+using manager;
 
 public class Student_World_Data : MonoBehaviour {
 
@@ -14,6 +15,9 @@ public class Student_World_Data : MonoBehaviour {
     private RectTransform dashTemplateX;
     private RectTransform dashTemplateY;
     private List<GameObject> gameObjectList;
+    private UserLevelDataManager userLevelDataManager;
+    public List<int> valueList;
+    public List<string> worldList;
 
     private void Awake() {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -23,15 +27,37 @@ public class Student_World_Data : MonoBehaviour {
         dashTemplateY = graphContainer.Find("dashTemplateY").GetComponent<RectTransform>();
 
         gameObjectList = new List<GameObject>();
+        userLevelDataManager = new UserLevelDataManager();
+        valueList = new List<int>();
+        worldList = new List<string>();
+        //testworld();
+        worldcheck();
 
-        List<int> valueList = new List<int>() { 98, 56, 45};
-        List<string> levelList = new List<string>(){"World1","World2", "World3"};
-
-        ShowGraph(valueList, levelList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
-        //ShowGraph(valueList, -1, (int _i) => "Level " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+        //List<int> valueList = new List<int>() { 98, 56, 45};
+        //List<string> worldList = new List<string>(){"World1","World2", "World3"};
     }
 
-    private void ShowGraph(List<int> valueList, List<string> levelList, int maxVisibleValueAmount = -1, Func<float, string> getAxisLabelY = null) {
+    private void testworld()
+    {
+        userLevelDataManager.getUserWorldData();
+    }
+    private async void worldcheck()
+    {
+        var wdata = await userLevelDataManager.getUserWorldData();
+        Debug.Log(wdata);
+
+        foreach (var item in wdata)
+            {
+                        var worldname = item.Key;
+                        var worldcount = item.Value;
+                        Debug.Log(worldname);
+                        worldList.Add(worldname);
+                        valueList.Add(worldcount);             
+            }
+                   
+        ShowGraph(valueList, worldList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
+    }
+    private void ShowGraph(List<int> valueList, List<string> worldList, int maxVisibleValueAmount = -1, Func<float, string> getAxisLabelY = null) {
        // if (getAxisLabelX == null) {
        //     getAxisLabelX = delegate (int _i) { return _i.ToString(); };
        // }
@@ -97,7 +123,7 @@ public class Student_World_Data : MonoBehaviour {
             labelX.SetParent(graphContainer, false);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, -30f);
-            labelX.GetComponent<Text>().text = levelList[i];
+            labelX.GetComponent<Text>().text = worldList[i];
             gameObjectList.Add(labelX.gameObject);
 
             RectTransform dashX = Instantiate(dashTemplateX);

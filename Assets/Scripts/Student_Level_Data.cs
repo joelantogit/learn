@@ -17,8 +17,8 @@ public class Student_Level_Data : MonoBehaviour {
     private List<GameObject> gameObjectList;
     private UserLevelDataManager userLevelDataManager;
 
-        List<int> valueList;
-        List<string> levelList;
+    public List<int> valueList;
+    public List<string> levelList;
 
 
     private void Awake() {

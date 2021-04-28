@@ -18,11 +18,12 @@ public class UserLevelDataManager : MonoBehaviour
 
 
 public string level = "";
-//public string[] levels = new string[];
+public string world = "";
 List<string> levelslist = new List<string>();
+List<string> userworldslist = new List<string>();
 List<string> Allevels = new List<string>();
 List<int> Allevelcount = new List<int>();
-public List<Dictionary<string, int>> levels;
+
     public async Task<Dictionary<string,int>> getUserLevelData()
     {   
         DatabaseReference user_reference = FirebaseDatabase.DefaultInstance.GetReference("UserLevelData");
@@ -50,6 +51,39 @@ public List<Dictionary<string, int>> levels;
                     var levelcounts =  levelslist.GroupBy(s => s)
                     .ToDictionary(g => g.Key, g => g.Count());
         return levelcounts;
+    }
+
+    public async Task<Dictionary<string,int>> getUserWorldData()
+    {   
+        DatabaseReference user_reference = FirebaseDatabase.DefaultInstance.GetReference("UserLevelData");
+        var users = new List<UserLevelData>();
+        Task<DataSnapshot> task = user_reference.GetValueAsync();
+        DataSnapshot snapshot = await task;  
+        foreach(var _users in snapshot.Children)
+            {
+                Debug.Log(_users);
+
+                foreach( var _worlddata in _users.Children)
+                {
+                    Debug.Log(_worlddata);
+                    world = _worlddata.Child("world").Value.ToString();
+                    Debug.Log(world);
+                    userworldslist.Add(world);
+                    userworldslist.Select(x => x).Distinct().ToList();
+                    Debug.Log(userworldslist.ToString());
+                }
+            Debug.Log("indivudal user list");
+            Debug.Log(world);
+            Debug.Log(userworldslist);
+            foreach( var i in userworldslist)
+                {
+                    Debug.Log(i);
+                }
+            }
+        var worldcounts =  userworldslist.GroupBy(s => s)
+        .ToDictionary(g => g.Key, g => g.Count());
+            
+        return worldcounts;
     }
 }
 
