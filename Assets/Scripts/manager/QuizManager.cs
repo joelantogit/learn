@@ -25,8 +25,8 @@ public class QuizManager : MonoBehaviour
     public int currentQuestion;
     public int score = 0;
     int totalQuestions = 4;
-    public string worldname = "Ratios";
-    public string levelname = "Conversion";
+    public string worldname;
+    public string levelname ;
     public int totalQuestionNum = 0;
     static int retryNum = 1;
 
@@ -42,6 +42,7 @@ public class QuizManager : MonoBehaviour
     public Text ScoreTxt;
     private UserManager UserManager;
     private User current_user;
+    public GameObject SubmitButtonPrefab;
 
     
     
@@ -54,10 +55,12 @@ public class QuizManager : MonoBehaviour
         generateQuestion();
         Debug.Log("started");
         UserManager = new UserManager();
+        worldname = "Sales";
+        levelname = "Discounting";
 
-        Task<User> user  = UserManager.GetCurrentUserFromDB();
-        current_user = user.Result;
-        
+        //Task<User> user  = UserManager.GetCurrentUserFromDB();
+        //current_user = user.Result;
+
 
     }
 
@@ -135,6 +138,9 @@ public class QuizManager : MonoBehaviour
         QuizPanel.SetActive(false);
         GoPanel.SetActive(true);
         ScoreTxt.text = score + "/" + totalQuestions*5;
+        GameObject SubmitButton = (GameObject)Instantiate(SubmitButtonPrefab);
+        SubmitButton.transform.localScale = new Vector2(1, 1);
+
 
     }
 
@@ -193,18 +199,23 @@ public class QuizManager : MonoBehaviour
     public void saveLevelData()
     {
         UserLevelData userLevelData = new UserLevelData();
-        Level level = new Level(); 
-        level.attempts = retryNum;
-        level.points = score;
-        World world = new World();
-        world.level = level;
-        userLevelData.world = world;
+        userLevelData.world = worldname;
+        userLevelData.level = levelname;
+        userLevelData.points = score;
+        userLevelData.attempts = retryNum;
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         string json = JsonConvert.SerializeObject(userLevelData);
         Debug.Log(json);
-        reference.Child("UserLevelData").Child(current_user.uid).SetRawJsonValueAsync(json);
+        string key = reference.Child("UserLevelData").Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").Push().Key;
+        reference.Child("UserLevelData").Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Child(key).SetRawJsonValueAsync(json);
+    }
+
+
+    public void next()
+    {
+        saveLevelData();
+        retry();
     }
 
 }
-
 

@@ -18,27 +18,73 @@ public class playcontroller : MonoBehaviour
 
     string worldselcted = "world 1";
     int currentworld = 3;
+    List<string> worlds,levels;
 
     public worldmanager worldmanager;
 
     // Start is called before the first frame update
     void Start()
     {
-        var wList = worldmanager.GetWorldlist().Result;
+        worldmanager = new worldmanager();
+        PopulateWorlds();
+        
+        
 
-        // string[] arr = worldmanager.returnlist();
-        Debug.LogWarning(wList);
-        for(int i = 1; i <= panCount ; i++)
+        
+
+        //Debug.LogWarning(arr);
+
+        //panCount = arr.Length;
+        //for (int i = 1; i <= panCount; i++)
+        //{
+        //    if (i > currentworld)//need to get currentworld from user 
+        //    {
+        //        worldname.GetComponent<Button>().enabled = false;
+        //    }
+        //    worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i;//update with worldnames
+        //    Instantiate(panPrefab, transform, false);
+
+        //}
+        //Destroy(panPrefab);
+    }
+
+
+    public async void PopulateWorlds()
+    {
+        worlds = new List<string>();
+        var reply = await worldmanager.GetWorldlist();
+        foreach(var world in reply)
         {
-            if(i > currentworld)//need to get currentworld from user 
+            worlds.Add(world);
+        }
+        
+        panCount = worlds.Count;
+        for (int i = 0; i < panCount; i++)
+        {
+            if (i+1 > currentworld)//need to get currentworld from user 
             {
                 worldname.GetComponent<Button>().enabled = false;
             }
-            worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i ;//update with worldnames
+            worldname.transform.GetChild(0).GetComponent<Text>().text = worlds[i];//update with worldnames
             Instantiate(panPrefab, transform, false);
-    
+
         }
         Destroy(panPrefab);
+        print("This is from populate world" + worlds[0]);
+        PopulateLevels(worlds[0]);
+
+
+    }
+
+    public async void PopulateLevels(string worldname)
+    {
+        levels = new List<string>();
+        var reply = await worldmanager.GetLevellist(worldname);
+        foreach(var level in reply)
+        {
+            levels.Add(level);
+        }
+        Debug.Log(levels[0]);
     }
 
     // Update is called once per frame
