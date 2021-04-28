@@ -7,21 +7,13 @@ namespace entity
     public class UserLevelData
     {
 
-        public World world { get; set; }
-
-    }
-
-    [Serializable]
-    public class Level
-    {
         public int attempts { get; set; }
+        public string level { get; set; }
         public int points { get; set; }
+        public string world { get; set; }
+
     }
 
-    [Serializable]
-    public class World
-    {
-        public Level level { get; set; }
-    }
+    
 
 }

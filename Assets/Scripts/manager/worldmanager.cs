@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 public class worldmanager
 {
     int totalChildren = 0;
-    List<string> list = new List<string>();
+    List<string> worldlist = new List<string>();
+    List<string> levellist = new List<string>();
     string[] arr;
 
 
@@ -36,14 +37,14 @@ public class worldmanager
                 Debug.LogWarning("here for loop");
                 foreach(var player in snapshot.Children){
                     Debug.Log("key " + player.Key);
-                    list.Add(player.Key.ToString());
+                    worldlist.Add(player.Key.ToString());
                 }
                 
             }      
         }
         );
 
-        return list;
+        return worldlist;
     }
    
     public async Task<List<string>> GetLevellist(string worldnum)
@@ -66,15 +67,15 @@ public class worldmanager
                 Debug.LogWarning("here");
                 foreach(var player in snapshot.Children){
                     Debug.Log("key " + player.Key);
-                    list.Add(player.Key.ToString());
+                    levellist.Add(player.Key.ToString());
                 }
-                arr = list.ToArray();
+                arr = levellist.ToArray();
                 Debug.LogWarning(arr[0]);
                 
             }      
         }
         );
-        return list;
+        return levellist;
         
     }
 
