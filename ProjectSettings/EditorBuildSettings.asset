@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Main_Page.unity
     guid: 70040e13b3658cc44bf26b333010bd87
@@ -27,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/login.unity
     guid: 750482f15c1f74319853bba732b1afbe
   - enabled: 1
-    path: Assets/Scenes/Student_Mastered_data.unity
-    guid: fb61e157a2db449d4a66964fbfe43b83
-  - enabled: 1
     path: Assets/Scenes/Data_analysis.unity
     guid: f4cff59b455fe46ed8e6593773da13e6
   - enabled: 1
@@ -38,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainLeaderboard.unity
     guid: ea69cd57142f9443db00ab46dcec1e78
+  - enabled: 1
+    path: Assets/Scenes/Student_Mastered_data.unity
+    guid: fb61e157a2db449d4a66964fbfe43b83
   - enabled: 1
     path: Assets/Scenes/Student_level_data.unity
     guid: 26a751ad8a73648d088996edbbfa0eba
