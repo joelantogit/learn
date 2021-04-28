@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class playcontroller : MonoBehaviour
 {
-    public int panCount  = 5; 
+    public int panCount  = 5; // need to replace with worldlist
     public GameObject scrollbar;
     public GameObject panPrefab;
     public GameObject worldname;
@@ -24,16 +24,17 @@ public class playcontroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //var arr = worldmanager.GetWorldlist();
-        
-        //Debug.LogWarning(arr);
+        var wList = worldmanager.GetWorldlist().Result;
+
+        // string[] arr = worldmanager.returnlist();
+        Debug.LogWarning(wList);
         for(int i = 1; i <= panCount ; i++)
         {
-            if(i > currentworld)
+            if(i > currentworld)//need to get currentworld from user 
             {
                 worldname.GetComponent<Button>().enabled = false;
             }
-            worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i ;
+            worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i ;//update with worldnames
             Instantiate(panPrefab, transform, false);
     
         }

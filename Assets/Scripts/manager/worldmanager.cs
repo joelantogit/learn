@@ -14,8 +14,9 @@ public class worldmanager
 
 
 
-    public async Task<string[]> GetWorldlist()
+    public async Task<List<string>>  GetWorldlist()
     {
+        Debug.LogWarning("getting");
         await FirebaseDatabase.DefaultInstance      
         .GetReference("Worlds")      
         .GetValueAsync().ContinueWith(task => 
@@ -26,39 +27,30 @@ public class worldmanager
                 // arr[0]="error";          
             }        
             else if (task.IsCompleted) 
-            {          
+            {    
                 DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
                 totalChildren = (int)task.Result.ChildrenCount;
+                
                 Debug.LogWarning("count " + totalChildren);
                 Debug.LogWarning("here");
-                for(int i = 1; i<= totalChildren ; i++)
-                {
-                    Debug.LogWarning("here for loop");
-                    string wrld = i.ToString();
-                    Debug.LogWarning(wrld);
-                    
-                    Debug.LogWarning(snapshot.Child(wrld).Child("worldname").Value.ToString());
-                    list.Add(snapshot.Child(wrld).Child("worldname").Value.ToString());
-                    
-                }  
+                Debug.LogWarning("here for loop");
+                foreach(var player in snapshot.Children){
+                    Debug.Log("key " + player.Key);
+                    list.Add(player.Key.ToString());
+                }
+                
             }      
         }
         );
-        arr = list.ToArray();
-        Debug.LogWarning(arr[0] + arr[1] + arr[2]);
-        
-        return arr;
-    }
-    public string[] returnlist()
-    {
-        return arr;
-    }
 
-    public void GetLevellist(string worldnum)
+        return list;
+    }
+   
+    public async Task<List<string>> GetLevellist(string worldnum)
     {
         string[] arr;
 
-         FirebaseDatabase.DefaultInstance      
+        await FirebaseDatabase.DefaultInstance      
         .GetReference("Worlds").Child(worldnum).Child("levels").GetValueAsync().ContinueWith(task => 
         {        
             if (task.IsFaulted) 
@@ -72,15 +64,9 @@ public class worldmanager
                 totalChildren = (int)task.Result.ChildrenCount;
                 Debug.LogWarning("count " + totalChildren);
                 Debug.LogWarning("here");
-                for(int i = 1; i<= totalChildren ; i++)
-                {
-                    Debug.LogWarning("here for loop");
-                    string lvl = i.ToString();
-                    Debug.LogWarning(lvl);
-                    
-                    Debug.LogWarning(snapshot.Child(lvl).Child("levelname").Value.ToString());
-                    list.Add(snapshot.Child(lvl).Child("levelname").Value.ToString());
-                    
+                foreach(var player in snapshot.Children){
+                    Debug.Log("key " + player.Key);
+                    list.Add(player.Key.ToString());
                 }
                 arr = list.ToArray();
                 Debug.LogWarning(arr[0]);
@@ -88,6 +74,7 @@ public class worldmanager
             }      
         }
         );
+        return list;
         
     }
 
