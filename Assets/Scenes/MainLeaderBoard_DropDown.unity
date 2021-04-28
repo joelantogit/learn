@@ -1693,13 +1693,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 644569177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6846770d5461b46e98605488eb8da042, type: 3}
+  m_Script: {fileID: 11500000, guid: 88247b717b35c4e808653c863427e582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LeaderBoard1: {fileID: 1757032062}
-  LeaderBoard2_World1: {fileID: 0}
-  LeaderBoard2_World2: {fileID: 0}
-  LeaderBoard2_World3: {fileID: 0}
+  LeaderBoard2_World1: {fileID: 2032448974}
+  LeaderBoard2_World2: {fileID: 1654629225}
+  LeaderBoard2_World3: {fileID: 788965913}
   LeaderBoard3: {fileID: 1601372935}
   mainButton: {fileID: 1893645796}
   classroomButton: {fileID: 1383485828}
@@ -5184,7 +5184,7 @@ GameObject:
   - component: {fileID: 1893645797}
   - component: {fileID: 1893645796}
   m_Layer: 5
-  m_Name: mainButton
+  m_Name: Main Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

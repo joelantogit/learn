@@ -6,11 +6,17 @@ using TMPro;
 using Firebase;
 using Firebase.Database;
 using System;
+using manager;
+using entity;
+
+
 
 public class LeaderBoardControllerList : MonoBehaviour{
 
     public GameObject rowPrefab;
     public Transform rowsParent;
+    private UserManager userManager;
+    private List<Dictionary<string, int>> leaderBoard;
 
 
     public int totalChildren;
@@ -42,6 +48,17 @@ public class LeaderBoardControllerList : MonoBehaviour{
 
     }
 
+    public void getUserpointslist()
+    {
+        var users = userManager.GetAllUsersList();
+        foreach(var user in users.Result)   
+        {
+            print("user name is" + user.name);
+            leaderBoard.Add(new Dictionary<string, int> { [user.name] = user.total_points });
+        }
+
+
+    }
 
     public void getTableData(){
     FirebaseDatabase.DefaultInstance
@@ -90,6 +107,7 @@ public class LeaderBoardControllerList : MonoBehaviour{
         getData();
         getTableData();
         displayOnLeaderBoard(totalChildren);
+        userManager = new UserManager();
     }
 
     // Update is called once per frame

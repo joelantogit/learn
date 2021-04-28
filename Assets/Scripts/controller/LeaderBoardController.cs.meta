@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Button.cs.meta
-guid: 118d7126bb27cd64188cb83fb86d1cf3
+<<<<<<< HEAD:Assets/Scenes/changescene.cs.meta
+guid: 88247b717b35c4e808653c863427e582
 =======
-guid: 435279c4187df4efbb6b594a1c1d0e78
->>>>>>> develop-michelle:Assets/Scenes/challenge.cs.meta
+guid: 6846770d5461b46e98605488eb8da042
+>>>>>>> develop-hn:Assets/Scripts/LeaderBoardController.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

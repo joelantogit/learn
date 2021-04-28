@@ -32,9 +32,9 @@ public class LeaderBoardController : MonoBehaviour
         LeaderBoard2_World3.SetActive(false);
         LeaderBoard3.SetActive(false);
 
-        mainButton.interactable = true;
+        mainButton.enabled = true;
         //worldButton.interactable = true;
-        classroomButton.interactable = true;
+        classroomButton.enabled = true;
 
     }
 

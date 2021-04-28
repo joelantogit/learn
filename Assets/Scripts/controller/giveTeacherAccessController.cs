@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 
 public class giveTeacherAccessController : MonoBehaviour
@@ -15,7 +16,7 @@ public class giveTeacherAccessController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        submitButton.interactable = false;
+        submitButton.enabled = false;
         infoText.text = string.Empty;
     }
 
@@ -24,7 +25,7 @@ public class giveTeacherAccessController : MonoBehaviour
     {
         if (!(string.IsNullOrEmpty(usernameInputField.text)))
         {
-            submitButton.interactable = true;
+            submitButton.enabled = true;
         }
     }
 
