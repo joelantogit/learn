@@ -8,6 +8,9 @@ using Firebase.Database;
 using System;
 using System.Threading.Tasks;
 using Random=UnityEngine.Random;
+using manager;
+using entity;
+using Newtonsoft.Json;
 
 public class QuizManager : MonoBehaviour
 {
@@ -37,7 +40,10 @@ public class QuizManager : MonoBehaviour
 
     public Text QuestionTxt;
     public Text ScoreTxt;
+    private UserManager UserManager;
+    private User current_user;
 
+    
     
     public List<QuestionAndAnswers> QnA = new List<QuestionAndAnswers>();
     
@@ -47,6 +53,11 @@ public class QuizManager : MonoBehaviour
         GoPanel.SetActive(false);
         generateQuestion();
         Debug.Log("started");
+        UserManager = new UserManager();
+
+        Task<User> user  = UserManager.GetCurrentUserFromDB();
+        current_user = user.Result;
+        
 
     }
 
@@ -179,4 +190,21 @@ public class QuizManager : MonoBehaviour
             
     }
 
+    public void saveLevelData()
+    {
+        UserLevelData userLevelData = new UserLevelData();
+        Level level = new Level(); 
+        level.attempts = retryNum;
+        level.points = score;
+        World world = new World();
+        world.level = level;
+        userLevelData.world = world;
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+        string json = JsonConvert.SerializeObject(userLevelData);
+        Debug.Log(json);
+        reference.Child("UserLevelData").Child(current_user.uid).SetRawJsonValueAsync(json);
+    }
+
 }
+
+

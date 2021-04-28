@@ -17,7 +17,7 @@ namespace entity
         public string name { get; set; }
         public string role { get; set; }
         public int total_points { get; set; }
-        public int worldselected { get; set; }
+        public string worldselected { get; set; }
 
 
     }

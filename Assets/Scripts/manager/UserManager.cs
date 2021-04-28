@@ -29,7 +29,7 @@ namespace manager
             user.current_level = "Average";
             user.current_world = 1;
             user.levelselected = "";
-            user.worldselected = 0;
+            user.worldselected = "";
             user.total_points = 0;
             user.character = "";
             user.uid = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
@@ -61,6 +61,7 @@ namespace manager
            
         }
 
+       
 
         public async Task<User> GetCurrentUserFromDB()
         {
