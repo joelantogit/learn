@@ -46,7 +46,7 @@ public class SubWorldController : MonoBehaviour
         if(eventSystem.currentSelectedGameObject != null)
         {
             currentobj = eventSystem.currentSelectedGameObject;
-            if (currentobj != null)
+            if (currentobj != null && (currentobj.gameObject.scene.name == null))
             {
                 GameObject obj = currentobj.transform.parent.gameObject;
                 levelselected = obj.transform.GetChild(0).GetComponent<Text>().text;
