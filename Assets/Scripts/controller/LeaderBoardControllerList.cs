@@ -48,9 +48,9 @@ public class LeaderBoardControllerList : MonoBehaviour{
 
     }
 
-    public void getUserpointslist()
+    public async void getUserpointslist()
     {
-        var users = userManager.GetAllUsersList();
+        var users = await userManager.GetAllUsersList();
         foreach(var user in users.Result)   
         {
             print("user name is" + user.name);
