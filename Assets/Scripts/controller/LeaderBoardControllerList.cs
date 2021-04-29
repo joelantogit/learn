@@ -107,7 +107,9 @@ public class LeaderBoardControllerList : MonoBehaviour{
         getData();
         getTableData();
         displayOnLeaderBoard(totalChildren);
+        leaderBoard = new List<Dictionary<string, int>>();
         userManager = new UserManager();
+        getUserpointslist();
     }
 
     // Update is called once per frame
