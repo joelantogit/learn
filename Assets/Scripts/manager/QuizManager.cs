@@ -43,9 +43,10 @@ public class QuizManager : MonoBehaviour
     private UserManager UserManager;
     private User current_user;
     public GameObject SubmitButtonPrefab;
+    private Firebase.Auth.FirebaseUser currentUser;
 
-    
-    
+
+
     public List<QuestionAndAnswers> QnA = new List<QuestionAndAnswers>();
     
 
@@ -57,6 +58,7 @@ public class QuizManager : MonoBehaviour
         UserManager = new UserManager();
         worldname = "Sales";
         levelname = "Discounting";
+        currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
 
         //Task<User> user  = UserManager.GetCurrentUserFromDB();
         //current_user = user.Result;
@@ -206,8 +208,8 @@ public class QuizManager : MonoBehaviour
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         string json = JsonConvert.SerializeObject(userLevelData);
         Debug.Log(json);
-        string key = reference.Child("UserLevelData").Child("8yoi7DcFUwN5sWDqO8LQDmlFtBh2").Push().Key;
-        reference.Child("UserLevelData").Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Child(key).SetRawJsonValueAsync(json);
+        string key = reference.Child("UserLevelData").Child(currentUser.UserId).Push().Key;
+        reference.Child("UserLevelData").Child(currentUser.UserId).Child(key).SetRawJsonValueAsync(json);
     }
 
 

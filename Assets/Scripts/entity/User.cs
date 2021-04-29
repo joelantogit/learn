@@ -10,7 +10,7 @@ namespace entity
         public string uid { get; set; }
         public string character { get; set; }
         public string current_level { get; set; }
-        public int current_world { get; set; }
+        public string current_world { get; set; }
         public string emailid { get; set; }
         public bool enable_email { get; set; }
         public string levelselected { get; set; }
