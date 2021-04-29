@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using manager;
+using UnityEngine.UI;
+
 public class profileController : MonoBehaviour
 {
     private UserManager userManager;
-    //private string  = 
+    public Text  username;
+    public Text points;
+    public Text level;
     // Start is called before the first frame update
     void Start()
     {
         userManager = new UserManager();
+        setdata();
         
     }
 
@@ -17,5 +22,16 @@ public class profileController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public async void setdata()
+    {
+        var user = await  userManager.GetCurrentUserFromDB();
+        Debug.Log("current user is " + user.name);
+        username.text = user.name;
+        points.text = user.total_points.ToString();
+        level.text = user.current_level;
+
+
     }
 }
