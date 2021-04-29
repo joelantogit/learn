@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
+using manager;
+using UnityEngine.UI;
 
 public class toggleScript : MonoBehaviour
 {
+
+    Firebase.Auth.FirebaseUser currentUser;
+    UserManager userManager;
+    bool toggle;
+    public GameObject Toggle;
     // Start is called before the first frame update
     void Start()
     {
-       
+        currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
+        userManager = new UserManager();
+        setdata();
+
     }
 
     // Update is called once per frame
@@ -19,8 +29,8 @@ public class toggleScript : MonoBehaviour
     }
     public void emailToggle(bool tog)
     {
-        var userID = "1000";
-        userID = "8yoi7DcFUwN5sWDqO8LQDmlFtBh2";
+        var userID = currentUser.UserId;
+        toggle = !toggle;
         FirebaseDatabase.DefaultInstance      
         .GetReference("User")      
         .GetValueAsync().ContinueWith(task => 
@@ -36,7 +46,14 @@ public class toggleScript : MonoBehaviour
             }      
         }
         );
-        FirebaseDatabase.DefaultInstance.GetReference("User/"+userID+"/enable_email").SetValueAsync(tog);       
+        FirebaseDatabase.DefaultInstance.GetReference("User/"+userID+"/enable_email").SetValueAsync(toggle);       
+    }
+
+    public async void setdata()
+    {
+        var user = await userManager.GetCurrentUserFromDB();
+        toggle = user.enable_email;
+        Toggle.GetComponent<Toggle>().isOn=toggle;
     }
 
     
