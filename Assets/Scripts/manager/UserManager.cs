@@ -20,10 +20,10 @@ namespace manager
         {
             User user = new User();
             Debug.Log("inside create user");
-            user.name = "joel";
-            //user.name = currentUser.DisplayName;
-            user.emailid = "test@gmail.com";
-            //user.emailid = currentUser.Email;
+            //user.name = "joel";
+            user.name = currentUser.DisplayName;
+            //user.emailid = "test@gmail.com";
+            user.emailid = currentUser.Email;
             user.enable_email = true;
             user.role = "student";
             user.current_level = "Average";
@@ -32,8 +32,8 @@ namespace manager
             user.worldselected = "";
             user.total_points = 0;
             user.character = "";
-            user.uid = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
-            //user.uid = currentUser.UserId;
+            //user.uid = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
+            user.uid = currentUser.UserId;
 
             DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
             string json = JsonConvert.SerializeObject(user);
@@ -70,7 +70,7 @@ namespace manager
 
             DataSnapshot snapshot = await task;
             //string str = snapshot.Child(currentUser.UserId).GetRawJsonValue();
-            string str = snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").GetRawJsonValue();
+            string str = snapshot.Child(currentUser.UserId).GetRawJsonValue();
             Debug.Log(str);
             user = JsonConvert.DeserializeObject<User>(str);
             //User user = juser.user;
