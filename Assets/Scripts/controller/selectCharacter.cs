@@ -10,9 +10,10 @@ public class selectCharacter : MonoBehaviour
     public string character = "Male1";
     public static string savedCharacter = "Male1";
     private string userID = "1000";
+    Firebase.Auth.FirebaseUser currentUser;
     void Start()
     {
-        
+        currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
     }
 
     // Update is called once per frame
@@ -59,7 +60,8 @@ public class selectCharacter : MonoBehaviour
     public void sendCharacter()
     {
         savedCharacter = character;
-        userID = "8yoi7DcFUwN5sWDqO8LQDmlFtBh2";
+        userID = currentUser.UserId.ToString();
+        
         FirebaseDatabase.DefaultInstance      
         .GetReference("User")      
         .GetValueAsync().ContinueWith(task => 
