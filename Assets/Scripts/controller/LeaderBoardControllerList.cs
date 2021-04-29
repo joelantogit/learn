@@ -51,7 +51,7 @@ public class LeaderBoardControllerList : MonoBehaviour{
     public async void getUserpointslist()
     {
         var users = await userManager.GetAllUsersList();
-        foreach(var user in users.Result)   
+        foreach(var user in users)   
         {
             print("user name is" + user.name);
             leaderBoard.Add(new Dictionary<string, int> { [user.name] = user.total_points });
