@@ -30,6 +30,8 @@ List<string> userworldslist = new List<string>();
 List<string> Allevels = new List<string>();
 List<int> Allevelcount = new List<int>();
 Dictionary<string,int> masterleveldict= new Dictionary<string,int>();
+
+Dictionary<string,int> classroomdict= new Dictionary<string,int>();
 //Dictionary<string,int> mymasterleveldict = new Dictionary<string,int>();
 
     public async Task<Dictionary<string,int>> getUserLevelData()
@@ -140,6 +142,45 @@ Dictionary<string,int> masterleveldict= new Dictionary<string,int>();
     
      return masterleveldict;
     }
+
+    /*
+
+public async Task<Dictionary<string,int>> getClassroomData()
+    {   
+        DatabaseReference teacher_reference = FirebaseDatabase.DefaultInstance.GetReference("Classroom");
+        //var users = new List<UserLevelData>();
+        Task<DataSnapshot> task = teacher_reference.GetValueAsync();
+        DataSnapshot snapshot = await task;  
+        foreach(var _users in snapshot.Children)
+            {
+                Debug.Log(_users);
+
+                foreach( var _classroomdata in _users.Children)
+                {
+                    foreach( var _student in _classroomdata.Children.Value)
+                {
+                    Debug.Log(_student);
+                    Debug.Log(_student.Children.ToString());
+                    //student = _classroomdata.Child("level").Value.ToString();
+                    //Debug.Log(level);
+                    //studentlist.Add(_student);
+                    classroomdict[_student]= _student;
+            }
+            }
+            /*Debug.Log(level);
+            Debug.Log(levelslist);
+            foreach( var i in levelslist)
+                {
+                    Debug.Log(i);
+                }
+                    var levelcounts =  levelslist.GroupBy(s => s)
+                    .ToDictionary(g => g.Key, g => g.Count());
+        
+        
+            }
+            return classroomdict;
+    }*/
+    
 }
 
 
