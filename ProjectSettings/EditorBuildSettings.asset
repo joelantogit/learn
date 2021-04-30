@@ -48,6 +48,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Student_level_data.unity
     guid: 26a751ad8a73648d088996edbbfa0eba
   - enabled: 1
+    path: Assets/Scenes/Classroom_data.unity
+    guid: cc26b7d1555a34029917797930ee4265
+  - enabled: 1
     path: Assets/Scenes/Student_World_data.unity
     guid: b35f4821e52004455ba98482ac773cb1
+  - enabled: 1
+    path: Assets/Scenes/Classroom_create_page.unity
+    guid: 3a4be5c4effec42418e793eb09a907ba
   m_configObjects: {}
