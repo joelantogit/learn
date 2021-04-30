@@ -96,8 +96,6 @@ public class SubWorldController : MonoBehaviour
         {
             worldname.GetComponent<Text>().text = levels[i];
             g = Instantiate(levelTemplate, transform);
-           
-
         }
         Destroy(levelTemplate);
     }

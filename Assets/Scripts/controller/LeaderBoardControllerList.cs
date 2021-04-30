@@ -13,11 +13,12 @@ using entity;
 
 public class LeaderBoardControllerList : MonoBehaviour{
 
-    public GameObject rowPrefab;
-    public Transform rowsParent;
+   
     private UserManager userManager;
     private Dictionary<string, int> leaderBoard;
-
+    private int usercount = 2;
+    public GameObject usertemplate;
+    public GameObject template;
 
     public int totalChildren;
     public string userID1 = "8yoi7DcFUwN5sWDqO8LQDmlFtBh2"; 
@@ -29,24 +30,24 @@ public class LeaderBoardControllerList : MonoBehaviour{
     //var userID = new List<string>(){};
 
 
-    public void displayOnLeaderBoard(int totalChildren){
+    // public void displayOnLeaderBoard(int totalChildren){
 
-        for (int i = 0; i < totalChildren; i++){
-            GameObject newGo = Instantiate(rowPrefab, rowsParent);
-            Text[] texts = newGo.GetComponentsInChildren<Text>();
-            //texts[0].text = i.ToString();
-            texts[0].text = "00";
-            //texts[1].text = userName1;
-            texts[1].text = "htetnay";
-            //texts[2].text = totalPoint1.ToString();
-            texts[2].text = "99";
-            //print (userName1);
-            //print (totalPoint1);
-            //print ("button is working");
-            //print (totalChildren);
-        }
+    //     for (int i = 0; i < totalChildren; i++){
+    //         GameObject newGo = Instantiate(rowPrefab, rowsParent);
+    //         Text[] texts = newGo.GetComponentsInChildren<Text>();
+    //         //texts[0].text = i.ToString();
+    //         texts[0].text = "00";
+    //         //texts[1].text = userName1;
+    //         texts[1].text = "htetnay";
+    //         //texts[2].text = totalPoint1.ToString();
+    //         texts[2].text = "99";
+    //         //print (userName1);
+    //         //print (totalPoint1);
+    //         //print ("button is working");
+    //         //print (totalChildren);
+    //     }
 
-    }
+    // }
 
     public async void getUserpointslist()
     {
@@ -109,9 +110,10 @@ public class LeaderBoardControllerList : MonoBehaviour{
     // Start is called before the first frame update
     void Start()
     {
+        populatelist();
         getData();
         getTableData();
-        displayOnLeaderBoard(totalChildren);
+        
         userManager = new UserManager();
         getUserpointslist();
     }
@@ -120,5 +122,19 @@ public class LeaderBoardControllerList : MonoBehaviour{
     void Update()
     {
         
+    }
+
+    void populatelist()
+    {
+        for (int i = 0; i < usercount; i++)
+        {
+            
+            template.transform.GetChild(0).GetComponent<Text>().text = "postioin " + i;//update with worldnames
+            template.transform.GetChild(1).GetComponent<Text>().text = "username " + i;
+            template.transform.GetChild(2).GetComponent<Text>().text = "points " + i;
+            Instantiate(usertemplate, transform, false);
+
+        }
+        Destroy(usertemplate);
     }
 }
