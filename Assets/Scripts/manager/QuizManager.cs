@@ -210,9 +210,35 @@ public class QuizManager : MonoBehaviour
         Debug.Log(json);
         string key = reference.Child("UserLevelData").Child(currentUser.UserId).Push().Key;
         reference.Child("UserLevelData").Child(currentUser.UserId).Child(key).SetRawJsonValueAsync(json);
+        addpoints();
+        
     }
 
-
+    async Task addpoints()
+    {
+        int total = 0;
+        await FirebaseDatabase.DefaultInstance      
+        .GetReference("User")      
+        .GetValueAsync().ContinueWith(task => 
+        {        
+            if (task.IsFaulted) 
+            {
+                print("Error");  // Handle the error...                      
+            }        
+            else if (task.IsCompleted) 
+            {          
+                DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
+                
+                int points = Convert.ToInt32(snapshot.Child(currentUser.UserId).Child("total_points").Value); 
+                total = score + points;
+                Debug.Log(points);
+                
+            }      
+        }
+        );
+        FirebaseDatabase.DefaultInstance.GetReference("User/"+currentUser.UserId+"/total_points").SetValueAsync(total);  
+        return;
+    }
     public void next()
     {
         saveLevelData();
