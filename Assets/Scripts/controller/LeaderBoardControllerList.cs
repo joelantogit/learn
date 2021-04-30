@@ -6,89 +6,71 @@ using TMPro;
 using Firebase;
 using Firebase.Database;
 using System;
+using System.Threading.Tasks;
 using manager;
 using entity;
+using System.Linq;
 
 
 
-public class LeaderBoardControllerList : MonoBehaviour{
-
-   
+public class LeaderBoardControllerList : MonoBehaviour
+{
     private UserManager userManager;
-    private Dictionary<string, int> leaderBoard;
     private int usercount = 2;
     public GameObject usertemplate;
     public GameObject template;
 
+    public List <string> nameList;
+    public List <int> pointList;
+    
     public int totalChildren;
     public string userID1 = "8yoi7DcFUwN5sWDqO8LQDmlFtBh2"; 
-    //public String userID2 = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
-    public string userName1;
-    public int totalPoint1;
-    //public String userName2 = "";
-    //public Int totalPoint2;
-    //var userID = new List<string>(){};
+    
+    public string username = " ";
+    public int totalPoints = 0;
 
+    public Dictionary<string, int> orderedList = new Dictionary<string, int>();
 
-    // public void displayOnLeaderBoard(int totalChildren){
-
-    //     for (int i = 0; i < totalChildren; i++){
-    //         GameObject newGo = Instantiate(rowPrefab, rowsParent);
-    //         Text[] texts = newGo.GetComponentsInChildren<Text>();
-    //         //texts[0].text = i.ToString();
-    //         texts[0].text = "00";
-    //         //texts[1].text = userName1;
-    //         texts[1].text = "htetnay";
-    //         //texts[2].text = totalPoint1.ToString();
-    //         texts[2].text = "99";
-    //         //print (userName1);
-    //         //print (totalPoint1);
-    //         //print ("button is working");
-    //         //print (totalChildren);
-    //     }
-
-    // }
-
-    public async void getUserpointslist()
+    async void getUserData()
     {
-        leaderBoard = new Dictionary<string, int>();
-        var users = await userManager.GetAllUsersList();
-        foreach(var user in users)   
+        await getUserpointslist();
+        await getData();
+        await populatelist();
+    }
+    public async Task getUserpointslist()
+    {
+        Dictionary<string, int> leaderBoard = new Dictionary<string, int>();
+        DatabaseReference user_reference = FirebaseDatabase.DefaultInstance.GetReference("User");
+       // var users = new List<UserLevelData>();
+        Task<DataSnapshot> task = user_reference.GetValueAsync();
+        DataSnapshot snapshot = await task; 
+        
+        foreach(var _users in snapshot.Children)
         {
-            //print("user name is" + user.name);
-            leaderBoard.Add(user.name, user.total_points);
+            
+            username = _users.Child("name").Value.ToString();
+            
+            totalPoints = Convert.ToInt32(_users.Child("total_points").Value);
+            
+            leaderBoard.Add(username, totalPoints);
+            
+            
+
         }
-        //var orderedList = leaderBoard.OrderBy(x => x.Value).ToList();
+
+        //orderedList = leaderBoard.OrderByDescending (x => x.Value).ToList();
         //var sortedDict = from entry in leaderBoard orderby entry.Value ascending select entry;
         
-        foreach(KeyValuePair<string, int> kvp in leaderBoard)
-			Debug.LogWarning(kvp.Value);
-            //Debug.LogWarning(kvp.Value);
+        foreach(var kvp in leaderBoard.OrderByDescending (x => x.Value))
+		{
+            nameList.Add(kvp.Key);
+            pointList.Add(kvp.Value);
+        }
+        return;
     }
 
-    public void getTableData(){
-    FirebaseDatabase.DefaultInstance
-        .GetReference("User")
-        .GetValueAsync().ContinueWith(task => 
-        {        
-            if (task.IsFaulted) 
-            {
-                print("Error");  // Handle the error...                      
-            }     
-            else if (task.IsCompleted) 
-            {          
-                DataSnapshot snapshot = task.Result;          // Do something with snapshot...       
-                Debug.Log (userID1);
-                userName1  = snapshot.Child(userID1).Child("name").Value.ToString(); 
-                totalPoint1 = Convert.ToInt32(snapshot.Child(userID1).Child("total_points").Value.ToString());
-                //print (userName1);
-                //print (totalPoint1);
-            }      
-        }
-        );
-    }
-    public void getData(){        
-    FirebaseDatabase.DefaultInstance      
+    public async Task getData(){        
+    await FirebaseDatabase.DefaultInstance      
         .GetReference("User")      
         .GetValueAsync().ContinueWith(task => 
         {        
@@ -100,41 +82,42 @@ public class LeaderBoardControllerList : MonoBehaviour{
             {          
                 DataSnapshot snapshot = task.Result;          // Do something with snapshot... 
                 totalChildren = (int)task.Result.ChildrenCount;   
-                //print (totalChildren);   
+                print (totalChildren);   
             }      
         }
         );
+        return ;
         //FirebaseDatabase.DefaultInstance.GetReference("User/"+userID+"/character").SetValueAsync(savedCharacter);
     }
 
+    async Task populatelist()
+    {
+        print(totalChildren);
+        for (int i = 0; i < totalChildren; i++)
+        {
+            print(i);
+            
+            template.transform.GetChild(0).GetComponent<Text>().text = (i + 1).ToString();//update with worldnames
+            template.transform.GetChild(1).GetComponent<Text>().text = nameList[i];
+            template.transform.GetChild(2).GetComponent<Text>().text = pointList[i].ToString();
+            Instantiate(usertemplate, transform, false);
+
+        }
+        Destroy(usertemplate);
+        return;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        populatelist();
-        getData();
-        getTableData();
-        
         userManager = new UserManager();
-        getUserpointslist();
+        getUserData();
+        
     }
+    
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void populatelist()
-    {
-        for (int i = 0; i < usercount; i++)
-        {
-            
-            template.transform.GetChild(0).GetComponent<Text>().text = "postioin " + i;//update with worldnames
-            template.transform.GetChild(1).GetComponent<Text>().text = "username " + i;
-            template.transform.GetChild(2).GetComponent<Text>().text = "points " + i;
-            Instantiate(usertemplate, transform, false);
-
-        }
-        Destroy(usertemplate);
     }
 }
