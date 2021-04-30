@@ -169,7 +169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 163655596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b077cd5b62c9641ffa6403235a82902b, type: 3}
+  m_Script: {fileID: 11500000, guid: 06355291970e01d45acd63277e87b4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &163655599
@@ -214,7 +214,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163655600}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 163655598}
+        m_MethodName: ChangeToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Profile
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &163655600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +554,7 @@ GameObject:
   - component: {fileID: 766353059}
   - component: {fileID: 766353058}
   - component: {fileID: 766353057}
+  - component: {fileID: 766353056}
   m_Layer: 0
   m_Name: savebtn
   m_TagString: Untagged
@@ -569,6 +581,18 @@ RectTransform:
   m_AnchoredPosition: {x: 750, y: -350}
   m_SizeDelta: {x: 155, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &766353056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766353054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06355291970e01d45acd63277e87b4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &766353057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +645,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: You have created new character
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 766353056}
+        m_MethodName: ChangeToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Profile
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &766353058

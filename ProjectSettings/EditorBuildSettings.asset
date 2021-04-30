@@ -24,6 +24,15 @@ EditorBuildSettings:
     path: Assets/Scenes/login.unity
     guid: 750482f15c1f74319853bba732b1afbe
   - enabled: 1
+    path: Assets/Scenes/setting.unity
+    guid: 2421bb004b0e6494996a0c269f557d6d
+  - enabled: 1
+    path: Assets/Scenes/character.unity
+    guid: 26fce77a97dcf47f69cd6ce5996c94b6
+  - enabled: 1
+    path: Assets/Scenes/Worlds.unity
+    guid: e8e9c4bf023fc40f7b90ffb883438949
+  - enabled: 1
     path: Assets/Scenes/Data_analysis.unity
     guid: f4cff59b455fe46ed8e6593773da13e6
   - enabled: 1

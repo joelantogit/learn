@@ -25,13 +25,16 @@ namespace controller
     private FirebaseUser user;
     private UserManager userManager;
     private DatabaseReference user_reference;
-        
+        private string email = "learn.app.team8.01@gmail.com";
+        private string password = "Team8learn";
+
+
 
         private void Awake()
         {
             configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
-            //CheckFirebaseDependencies();
-            FirebaseApp.CheckAndFixDependenciesAsync();
+            CheckFirebaseDependencies();
+            //FirebaseApp.CheckAndFixDependenciesAsync();
             user_reference = FirebaseDatabase.DefaultInstance.GetReference("User");
             userManager = new UserManager();
 
@@ -87,7 +90,9 @@ namespace controller
     public void SignInWithGoogle()
     {
         AddToInformation("Login pressed");
-            checkIfUserExists();
+            //checkIfUserExists();
+            //CreateUserWithUsernameAndPasword();
+            SignInWithUsernameAndPassword();
            // OnSignIn();
             
 
@@ -115,6 +120,29 @@ namespace controller
         AddToInformation("Calling Disconnect");
         GoogleSignIn.DefaultInstance.Disconnect();
     }
+
+    public void SignInWithUsernameAndPassword()
+        {
+            auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+                if (task.IsCanceled)
+                {
+                    Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
+                    return;
+                }
+                if (task.IsFaulted)
+                {
+                    Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                    return;
+                }
+
+                Firebase.Auth.FirebaseUser user = task.Result;
+                Debug.LogFormat("User signed in successfully: {0} ({1})",
+                    user.DisplayName, user.UserId);
+                checkIfUserExists();
+
+                
+            });
+        }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
     {
@@ -187,7 +215,7 @@ namespace controller
                     //Debug.Log("Checking if user 1 exists");
 
                     //if (snapshot.Child(user.UserId).Exists)
-                    if (snapshot.Child("vlcP7MmerUYrbds2RuiC7oLY5bn1").Exists)
+                    if (snapshot.Child(user.UserId).Exists)
                     {
                         Debug.Log("User exists");
 
@@ -263,15 +291,38 @@ namespace controller
             Debug.Log(str);
             infoText.text += "\n" + str; }
 
-        public void sceneChangeAfterLogin(string str)
-        {
-            SceneManager.LoadScene("Scenes/"+ str);
+    public void sceneChangeAfterLogin(string str)
+    {
+        SceneManager.LoadScene("Scenes/"+ str);
            
-        }
+    }
+
+    public void CreateUserWithUsernameAndPasword()
+    {
+        auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
+            if (task.IsCanceled)
+            {
+                Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
+                return;
+            }
+            if (task.IsFaulted)
+            {
+                Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                return;
+            }
+
+            // Firebase user has been created.
+            Firebase.Auth.FirebaseUser newUser = task.Result;
+            Debug.LogFormat("Firebase user created successfully: {0} ({1})",
+                newUser.DisplayName, newUser.UserId);
+        });
+    }
 
 
 
     }
+
+
 
 }
 
