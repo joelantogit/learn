@@ -16,7 +16,7 @@ public class LeaderBoardControllerList : MonoBehaviour{
     public GameObject rowPrefab;
     public Transform rowsParent;
     private UserManager userManager;
-    private List<Dictionary<string, int>> leaderBoard;
+    private Dictionary<string, int> leaderBoard;
 
 
     public int totalChildren;
@@ -42,22 +42,27 @@ public class LeaderBoardControllerList : MonoBehaviour{
             texts[2].text = "99";
             //print (userName1);
             //print (totalPoint1);
-            print ("button is working");
-            print (totalChildren);
+            //print ("button is working");
+            //print (totalChildren);
         }
 
     }
 
     public async void getUserpointslist()
     {
+        leaderBoard = new Dictionary<string, int>();
         var users = await userManager.GetAllUsersList();
         foreach(var user in users)   
         {
-            print("user name is" + user.name);
-            leaderBoard.Add(new Dictionary<string, int> { [user.name] = user.total_points });
+            //print("user name is" + user.name);
+            leaderBoard.Add(user.name, user.total_points);
         }
-
-
+        //var orderedList = leaderBoard.OrderBy(x => x.Value).ToList();
+        //var sortedDict = from entry in leaderBoard orderby entry.Value ascending select entry;
+        
+        foreach(KeyValuePair<string, int> kvp in leaderBoard)
+			Debug.LogWarning(kvp.Value);
+            //Debug.LogWarning(kvp.Value);
     }
 
     public void getTableData(){
@@ -75,8 +80,8 @@ public class LeaderBoardControllerList : MonoBehaviour{
                 Debug.Log (userID1);
                 userName1  = snapshot.Child(userID1).Child("name").Value.ToString(); 
                 totalPoint1 = Convert.ToInt32(snapshot.Child(userID1).Child("total_points").Value.ToString());
-                print (userName1);
-                print (totalPoint1);
+                //print (userName1);
+                //print (totalPoint1);
             }      
         }
         );
@@ -94,7 +99,7 @@ public class LeaderBoardControllerList : MonoBehaviour{
             {          
                 DataSnapshot snapshot = task.Result;          // Do something with snapshot... 
                 totalChildren = (int)task.Result.ChildrenCount;   
-                print (totalChildren);   
+                //print (totalChildren);   
             }      
         }
         );
@@ -107,7 +112,6 @@ public class LeaderBoardControllerList : MonoBehaviour{
         getData();
         getTableData();
         displayOnLeaderBoard(totalChildren);
-        leaderBoard = new List<Dictionary<string, int>>();
         userManager = new UserManager();
         getUserpointslist();
     }
