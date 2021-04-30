@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CodeMonkey.Utils;
+using manager;
+using System.Linq;
 
 public class Student_Mastered_Area : MonoBehaviour {
 
@@ -14,6 +16,9 @@ public class Student_Mastered_Area : MonoBehaviour {
     private RectTransform dashTemplateX;
     private RectTransform dashTemplateY;
     private List<GameObject> gameObjectList;
+    private UserLevelDataManager userLevelDataManager;
+    public List<int> valueList;
+    public List<string> levelList;
 
     private void Awake() {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -21,14 +26,37 @@ public class Student_Mastered_Area : MonoBehaviour {
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         dashTemplateX = graphContainer.Find("dashTemplateX").GetComponent<RectTransform>();
         dashTemplateY = graphContainer.Find("dashTemplateY").GetComponent<RectTransform>();
-
         gameObjectList = new List<GameObject>();
+        userLevelDataManager = new UserLevelDataManager();
+        valueList = new List<int>();
+        levelList = new List<string>();
 
-        List<int> valueList = new List<int>() { 98, 56, 45};
-        List<string> levelList = new List<string>(){"World1","World2", "World3"};
+        masterlevelcheck();
+
+
+       // List<int> valueList = new List<int>() { 98, 56, 45};
+        //List<string> levelList = new List<string>(){"World1","World2", "World3"};
+
+        //ShowGraph(valueList, levelList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
+        //ShowGraph(valueList, -1, (int _i) => "Level " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+    }
+
+    private async void masterlevelcheck()
+    {
+        var mdata = await userLevelDataManager.getUserMasteredData();
+        //mdata.OrderBy(key => key.Value);
+        Debug.Log(mdata);
+
+        foreach (var item in mdata.OrderByDescending(key => key.Value))
+            {
+                        var masterlevelname = item.Key;
+                        var masterlevelscore = item.Value;
+                        Debug.Log(masterlevelname);
+                        levelList.Add(masterlevelname);
+                        valueList.Add(masterlevelscore);             
+            }
 
         ShowGraph(valueList, levelList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
-        //ShowGraph(valueList, -1, (int _i) => "Level " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
     }
 
     private void ShowGraph(List<int> valueList, List<string> levelList, int maxVisibleValueAmount = -1, Func<float, string> getAxisLabelY = null) {
