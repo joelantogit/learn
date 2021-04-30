@@ -54,7 +54,7 @@ public class ChallengeController : MonoBehaviour
             if (currentobj != null)
             {
                 try {
-                    opponent = currentobj.transform.GetChild(2).GetComponent<Text>().text;
+                    opponent = currentobj.transform.GetChild(3).GetComponent<Text>().text;
                     print(opponent);
                 }
                 catch
@@ -91,7 +91,9 @@ public class ChallengeController : MonoBehaviour
         {
             worldname.transform.GetChild(0).GetComponent<Text>().text = users[i].name;
             worldname.transform.GetChild(2).GetComponent<Text>().text = users[i].uid;
-            
+            worldname.transform.GetChild(2).GetComponent<Text>().text = users[i].emailid;
+
+
             Sprite DaSprite = Resources.Load(users[i].character, typeof(Sprite)) as Sprite;
             userimg.GetComponent<Image>().sprite = DaSprite;
             //worldname.transform.GetChild(1).GetComponent<Text>().text = "level " + i;
@@ -119,7 +121,7 @@ public class ChallengeController : MonoBehaviour
         reference.Child("Challenge_scores").Child(opponent).Child(key).SetRawJsonValueAsync(userLevelData);
         if (user.enable_email == true)
         {
-            SendGmail();
+            //SendGmail();
         }
         
     }

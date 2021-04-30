@@ -79,7 +79,7 @@ namespace controller
             user = auth.CurrentUser;
             if (signedIn)
             {
-                AddToInformation("Signed in " + user.UserId);
+                //AddToInformation("Signed in " + user.UserId);
                     //CheckRole();
             }
         }
@@ -89,7 +89,7 @@ namespace controller
 
     public void SignInWithGoogle()
     {
-        AddToInformation("Login pressed");
+        //AddToInformation("Login pressed");
             //checkIfUserExists();
             //CreateUserWithUsernameAndPasword();
             SignInWithUsernameAndPassword();
