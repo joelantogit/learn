@@ -6,18 +6,19 @@ using Firebase.Database;
 using entity;
 using manager;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 
 public class PlayManager
 {
 
-    public  Dictionary<string, string> challenges;
+    public Dictionary<string, string> challenges = new Dictionary<string, string>();
     Firebase.Auth.FirebaseUser currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
     private UserLevelData userLevelData;
 
     DatabaseReference challenge_reference = FirebaseDatabase.DefaultInstance.GetReference("Challenge_scores");
 
-    public async Dictionary<string, string> getChallenges()
+    public async Task<Dictionary<string, string>> getChallenges()
     {
 
         var data = await challenge_reference.Child(currentUser.UserId).GetValueAsync();
