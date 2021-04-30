@@ -921,15 +921,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1281128792}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1281128794}
+        m_MethodName: ChangeToScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Main_Page
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1281128796
@@ -951,7 +951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 03aaf3242580a91499c71206ca215d4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 532b4a642c3254b409561eb4a1c56ef8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1398,7 +1398,6 @@ MonoBehaviour:
   worldname: {fileID: 1468814097}
   eventSystem: {fileID: 172955500}
   currentobj: {fileID: 1468814097}
-  worldmanager: {fileID: 0}
 --- !u!1 &2132624162
 GameObject:
   m_ObjectHideFlags: 0

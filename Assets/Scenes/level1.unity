@@ -1672,6 +1672,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8002461916662114685, guid: 3f235f115fb8e43b98de86be227f50eb,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002461916662114685, guid: 3f235f115fb8e43b98de86be227f50eb,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002461916662114685, guid: 3f235f115fb8e43b98de86be227f50eb,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002461916662114685, guid: 3f235f115fb8e43b98de86be227f50eb,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeToScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002461916662114685, guid: 3f235f115fb8e43b98de86be227f50eb,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: subworlds
+      objectReference: {fileID: 0}
     - target: {fileID: 8906426079789785112, guid: 3f235f115fb8e43b98de86be227f50eb,
         type: 3}
       propertyPath: m_Name
@@ -2319,6 +2344,7 @@ GameObject:
   - component: {fileID: 2083801447}
   - component: {fileID: 2083801446}
   - component: {fileID: 2083801445}
+  - component: {fileID: 2083801449}
   m_Layer: 0
   m_Name: Next
   m_TagString: Untagged
@@ -2415,6 +2441,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2083801449}
+        m_MethodName: ChangeToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: subworlds
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083801447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2452,3 +2489,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083801443}
   m_CullTransparentMesh: 0
+--- !u!114 &2083801449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083801443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06355291970e01d45acd63277e87b4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -25,13 +25,16 @@ public class ChallengeController : MonoBehaviour
     public EventSystem eventSystem;
     public GameObject currentobj;
     private string opponent;
-
+    private Dictionary<string, string> challenges;
+    private PlayManager playManager;
     // Start is called before the first frame update
     void Start()
     {
         userMananger = new UserManager();
+        playManager = new PlayManager();
         currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
         users = new List<User>();
+        challenges = new Dictionary<string, string>();
         setdata();
     }
 
@@ -72,6 +75,13 @@ public class ChallengeController : MonoBehaviour
 
         user = await userMananger.GetCurrentUserFromDB();
 
+        challenges = await playManager.getChallenges();
+        foreach (KeyValuePair<string, string> entry in challenges)
+        {
+            Debug.Log("challenge id - " + entry.Key + "level - " + entry.Value);
+
+        }
+
     }
 
     public void setScene()
@@ -107,5 +117,8 @@ public class ChallengeController : MonoBehaviour
         reference.Child("Challenge").Child(key).SetRawJsonValueAsync(json);
         reference.Child("Challenge_scores").Child(opponent).Child(key).SetRawJsonValueAsync(userLevelData);
     }
+
+
+    
 
 }
