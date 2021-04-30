@@ -53,7 +53,7 @@ public class Student_Level_Data : MonoBehaviour {
                         valueList.Add(levelcount);             
             }
                    
-ShowGraph(valueList, levelList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
+        ShowGraph(valueList, levelList, -1,(float _f) => "" + Mathf.RoundToInt(_f));
     }
 
     private void ShowGraph(List<int> valueList, List<string> levelList, int maxVisibleValueAmount = -1, Func<float, string> getAxisLabelY = null) {
