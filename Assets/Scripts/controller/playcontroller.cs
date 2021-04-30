@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
 using UnityEngine.EventSystems;
+using manager;
 
 public class playcontroller : MonoBehaviour
 {
@@ -12,12 +13,12 @@ public class playcontroller : MonoBehaviour
     public GameObject scrollbar;
     public GameObject panPrefab;
     public GameObject worldname;
-    
+    private UserManager userManager;
     public EventSystem eventSystem;
     public GameObject currentobj;
 
-    string worldselcted = "world 1";
-    int currentworld = 3;
+    string worldselcted = "Basics";
+    string currentworld = "Basics";
     List<string> worlds;
     Firebase.Auth.FirebaseUser currentUser;
 
@@ -27,32 +28,20 @@ public class playcontroller : MonoBehaviour
     void Start()
     {
         worldmanager = new worldmanager();
+        userManager = new UserManager();
         currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
         PopulateWorlds();
         
         
-
-        
-
-        //Debug.LogWarning(arr);
-
-        //panCount = arr.Length;
-        //for (int i = 1; i <= panCount; i++)
-        //{
-        //    if (i > currentworld)//need to get currentworld from user 
-        //    {
-        //        worldname.GetComponent<Button>().enabled = false;
-        //    }
-        //    worldname.transform.GetChild(0).GetComponent<Text>().text = "world " + i;//update with worldnames
-        //    Instantiate(panPrefab, transform, false);
-
-        //}
-        //Destroy(panPrefab);
     }
 
 
     public async void PopulateWorlds()
     {
+        var user = await userManager.GetCurrentUserFromDB();
+        Debug.Log("current user is " + user.name);
+        currentworld = user.current_world;
+
         worlds = new List<string>();
         var reply = await worldmanager.GetWorldlist();
         foreach(var world in reply)
@@ -63,7 +52,9 @@ public class playcontroller : MonoBehaviour
         panCount = worlds.Count;
         for (int i = 0; i < panCount; i++)
         {
-            if (i+1 > currentworld)//need to get currentworld from user 
+            int index = worlds.IndexOf(worlds[i]);
+            int curworldindex = worlds.IndexOf(currentworld);
+            if (index > curworldindex)//need to get currentworld from user 
             {
                 worldname.GetComponent<Button>().enabled = false;
             }
