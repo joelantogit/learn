@@ -35,6 +35,8 @@ namespace manager
             //user.uid = "vlcP7MmerUYrbds2RuiC7oLY5bn1";
             user.uid = currentUser.UserId;
 
+            user.challengeselected = "";
+
             DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
             string json = JsonConvert.SerializeObject(user);
             Debug.Log(json);

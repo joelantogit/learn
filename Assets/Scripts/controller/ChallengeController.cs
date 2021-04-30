@@ -9,6 +9,10 @@ using Firebase.Auth;
 using Firebase.Database;
 using Newtonsoft.Json;
 using UnityEngine.EventSystems;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 public class ChallengeController : MonoBehaviour
 {
@@ -26,15 +30,18 @@ public class ChallengeController : MonoBehaviour
     public GameObject currentobj;
     private string opponent;
     private Dictionary<string, string> challenges;
-    private PlayManager playManager;
+    public string subjectMessage;
+    public string bodyMessage;
+    public string recipientEmail;
+
     // Start is called before the first frame update
     void Start()
     {
         userMananger = new UserManager();
-        playManager = new PlayManager();
+        
         currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
         users = new List<User>();
-        challenges = new Dictionary<string, string>();
+        
         setdata();
     }
 
@@ -75,13 +82,7 @@ public class ChallengeController : MonoBehaviour
 
         user = await userMananger.GetCurrentUserFromDB();
 
-        challenges = await playManager.getChallenges();
-        foreach (KeyValuePair<string, string> entry in challenges)
-        {
-            Debug.Log("challenge id - " + entry.Key + "level - " + entry.Value);
-
-        }
-
+        
     }
 
     public void setScene()
@@ -116,9 +117,42 @@ public class ChallengeController : MonoBehaviour
         reference.Child("Challenge_scores").Child(currentUser.UserId).Child(key).SetRawJsonValueAsync(userLevelData);
         reference.Child("Challenge").Child(key).SetRawJsonValueAsync(json);
         reference.Child("Challenge_scores").Child(opponent).Child(key).SetRawJsonValueAsync(userLevelData);
+        if (user.enable_email == true)
+        {
+            SendGmail();
+        }
+        
     }
 
 
-    
+    public void SendGmail()
+    {
+        recipientEmail = opponent;
+        bodyMessage = "New Challenge";
+        subjectMessage = "Send from learn up!";
+        MailMessage mail = new MailMessage();
+        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+        SmtpServer.Timeout = 10000;
+        SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+        SmtpServer.UseDefaultCredentials = false;
+        SmtpServer.Port = 587;
 
+        mail.From = new MailAddress(user.emailid);
+        mail.To.Add(new MailAddress(recipientEmail));
+
+        mail.Subject = subjectMessage;
+        mail.Body = bodyMessage;
+
+
+        SmtpServer.Credentials = new System.Net.NetworkCredential("learn.app.team8@gmail.com", "Team8learn") as ICredentialsByHost; SmtpServer.EnableSsl = true;
+        ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        };
+
+        mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+        SmtpServer.Send(mail);
+    }
+    
 }
+

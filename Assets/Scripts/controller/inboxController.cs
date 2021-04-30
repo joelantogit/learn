@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Database;
 using UnityEngine.EventSystems;
+using manager;
+
 public class inboxController : MonoBehaviour
 {
     public GameObject challengetemplate;
@@ -14,11 +16,29 @@ public class inboxController : MonoBehaviour
     private int challengecount = 3;
     private string challengeselected = "";
     Firebase.Auth.FirebaseUser currentUser;
+    private Dictionary<string, string> challenges;
+    private PlayManager playManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playManager = new PlayManager();
+        challenges = new Dictionary<string, string>();
         currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
+        
+        setdata();
+        
+
+    }
+
+    private async void setdata()
+    {
+        challenges = await playManager.getChallenges();
+        foreach (KeyValuePair<string, string> entry in challenges)
+        {
+            Debug.Log("challenge id - " + entry.Key + "level - " + entry.Value);
+
+        }
+        challengecount = challenges.Count;
         populatelist();
     }
 
@@ -32,7 +52,15 @@ public class inboxController : MonoBehaviour
             {
                 Debug.LogWarning("hello");
                 GameObject obj = currentobj.transform.parent.gameObject;
-                challengeselected = obj.transform.GetChild(0).GetComponent<Text>().text;
+                try
+                {
+                    challengeselected = obj.transform.GetChild(0).GetComponent<Text>().text;
+                }
+                catch
+                {
+
+                }
+                
                 // currentobj.GetComponent<Button>().material.color = Color.green;
                 //SaveSelectedLevel(challengeselected);
                 Debug.LogWarning(challengeselected);
@@ -67,15 +95,23 @@ public class inboxController : MonoBehaviour
 
     void populatelist()
     {
-        for (int i = 0; i < challengecount; i++)
+        foreach (KeyValuePair<string, string> entry in challenges)
         {
-            
-            template.transform.GetChild(0).GetComponent<Text>().text = "challenge " + i;//update with worldnames
-            template.transform.GetChild(1).GetComponent<Text>().text = "points " + i;
-            
+            template.transform.GetChild(0).GetComponent<Text>().text = "Challenge " ;//update with worldnames
+            template.transform.GetChild(1).GetComponent<Text>().text = entry.Value;
+
             Instantiate(challengetemplate, transform, false);
 
         }
+        //for (int i = 0; i < challengecount; i++)
+        //{
+            
+        //    template.transform.GetChild(0).GetComponent<Text>().text = challenges[ ;//update with worldnames
+        //    template.transform.GetChild(1).GetComponent<Text>().text = "points " + i;
+            
+        //    Instantiate(challengetemplate, transform, false);
+
+        //}
         Destroy(challengetemplate);
     }
 }

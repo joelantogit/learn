@@ -24,8 +24,14 @@ EditorBuildSettings:
     path: Assets/Scenes/login.unity
     guid: 750482f15c1f74319853bba732b1afbe
   - enabled: 1
+    path: Assets/Scenes/Inbox.unity
+    guid: 592864fa00ef94b1dbdf4ba8e1941e31
+  - enabled: 1
     path: Assets/Scenes/setting.unity
     guid: 2421bb004b0e6494996a0c269f557d6d
+  - enabled: 1
+    path: Assets/Scenes/MainLeaderBoard_DropDown_WithList.unity
+    guid: a1e966e7f2f8347ea8f0a97b327fb95a
   - enabled: 1
     path: Assets/Scenes/character.unity
     guid: 26fce77a97dcf47f69cd6ce5996c94b6
