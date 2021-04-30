@@ -18,7 +18,8 @@ public class playcontroller : MonoBehaviour
 
     string worldselcted = "world 1";
     int currentworld = 3;
-    List<string> worlds,levels;
+    List<string> worlds;
+    Firebase.Auth.FirebaseUser currentUser;
 
     public worldmanager worldmanager;
 
@@ -26,6 +27,7 @@ public class playcontroller : MonoBehaviour
     void Start()
     {
         worldmanager = new worldmanager();
+        currentUser = Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser;
         PopulateWorlds();
         
         
@@ -71,21 +73,12 @@ public class playcontroller : MonoBehaviour
         }
         Destroy(panPrefab);
         print("This is from populate world" + worlds[0]);
-        PopulateLevels(worlds[0]);
+        
 
 
     }
 
-    public async void PopulateLevels(string worldname)
-    {
-        levels = new List<string>();
-        var reply = await worldmanager.GetLevellist(worldname);
-        foreach(var level in reply)
-        {
-            levels.Add(level);
-        }
-        Debug.Log(levels[0]);
-    }
+   
 
     // Update is called once per frame
     void Update()
@@ -108,7 +101,7 @@ public class playcontroller : MonoBehaviour
     private void SaveSelectedWorld(string number)
     {
         var userID = "1000";
-        userID = "8yoi7DcFUwN5sWDqO8LQDmlFtBh2";
+        userID = currentUser.UserId;
         FirebaseDatabase.DefaultInstance      
         .GetReference("User")      
         .GetValueAsync().ContinueWith(task => 

@@ -27,7 +27,7 @@ namespace manager
             user.enable_email = true;
             user.role = "student";
             user.current_level = "Average";
-            user.current_world = 1;
+            user.current_world = "Basics";
             user.levelselected = "";
             user.worldselected = "";
             user.total_points = 0;
